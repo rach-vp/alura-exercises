@@ -15,6 +15,7 @@ while (attempt_num <= int(attempt_total)):
   lower = int(guess) < secret_num
   if (right):
     print('Você acertou o número secreto!\n')
+    break
   else:
     if (higher):
       print('Que pena! Seu palpite é maior que o número secreto.\n')
