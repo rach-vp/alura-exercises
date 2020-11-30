@@ -4,20 +4,23 @@ print('***************************************\n')
 
 secret_num = 13
 
-guess = input('Digite um número:\n')
-print(f'Você digitou o número {guess} \n')
-
-right = int(guess) == secret_num
-bigger = int(guess) > secret_num
-lower = int(guess) < secret_num
-
-if (right):
-  print('Você acertou o número secreto!\n')
-else:
-  if (bigger):
-    print('Que pena! Seu palpite é maior que o númeor secreto.\n')
-  elif (lower):
-    print('Que pena! Seu palpite é menor que o númeor secreto.\n')
+attempt_total = input('Digite o número de tentativas:\n')
+print(f'Você tem {attempt_total} tentativa(s).\n')
+attempt_num = 1
+while (attempt_num <= int(attempt_total)):
+  print(f'Tentativa {attempt_num} de {attempt_total}.\n')
+  guess = input('Digite um número:\n')
+  right = int(guess) == secret_num
+  higher = int(guess) > secret_num
+  lower = int(guess) < secret_num
+  if (right):
+    print('Você acertou o número secreto!\n')
+  else:
+    if (higher):
+      print('Que pena! Seu palpite é maior que o número secreto.\n')
+    elif (lower):
+      print('Que pena! Seu palpite é menor que o número secreto.\n')
+  attempt_num += 1
 
 print('***************************************')
 print('*            GAME OVER!               *')
