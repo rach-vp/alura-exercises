@@ -4,7 +4,8 @@ print('***************************************')
 print('*  Bem vindo ao jogo de Adivinhação!  *')
 print('***************************************\n')
 
-secret_num = round(random.random()*100)
+secret_num = round(random.randrange(1, 101))
+right_guess = False
 
 attempt_total = input('Digite o número de tentativas:\n')
 print(f'Você tem {attempt_total} tentativa(s).\n')
@@ -19,12 +20,15 @@ for attempt_num in range(1, int(attempt_total) + 1):
   lower = int(guess) < secret_num
   if (right):
     print('Você acertou o número secreto!\n')
+    right_guess = True
     break
+  elif (higher):
+    print('Que pena! Seu palpite é maior que o número secreto.\n')
   else:
-    if (higher):
-      print('Que pena! Seu palpite é maior que o número secreto.\n')
-    elif (lower):
-      print('Que pena! Seu palpite é menor que o número secreto.\n')
+    print('Que pena! Seu palpite é menor que o número secreto.\n')
+if (right_guess == False):
+  print('Sua tentativas esgotaram.')
+  print(f'O número secreto era {secret_num}.\n')
 
 print('***************************************')
 print('*            GAME OVER!               *')
