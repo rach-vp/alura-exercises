@@ -1,8 +1,10 @@
+import random
+
 print('***************************************')
 print('*  Bem vindo ao jogo de Adivinhação!  *')
 print('***************************************\n')
 
-secret_num = 13
+secret_num = round(random.random()*100)
 
 attempt_total = input('Digite o número de tentativas:\n')
 print(f'Você tem {attempt_total} tentativa(s).\n')
