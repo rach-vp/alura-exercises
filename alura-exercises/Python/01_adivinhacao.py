@@ -19,7 +19,7 @@ def play():
       continue
     right = int(guess) == secret_num
     higher = int(guess) > secret_num
-    lower = int(guess) < secret_num
+    # lower = int(guess) < secret_num
     if (right):
       print('Você acertou o número secreto!\n')
       right_guess = True
@@ -38,3 +38,5 @@ def play():
   print('***************************************')
   print('*            GAME OVER!               *')
   print('***************************************\n')
+
+if __name__ == '__main__': play()
