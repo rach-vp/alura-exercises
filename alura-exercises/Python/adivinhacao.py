@@ -1,6 +1,7 @@
 import random
 
 def play():
+  print('\n')
   print('***************************************')
   print('*  Bem vindo ao jogo de Adivinhação!  *')
   print('***************************************\n')
@@ -19,7 +20,6 @@ def play():
       continue
     right = int(guess) == secret_num
     higher = int(guess) > secret_num
-    # lower = int(guess) < secret_num
     if (right):
       print('Você acertou o número secreto!\n')
       right_guess = True
