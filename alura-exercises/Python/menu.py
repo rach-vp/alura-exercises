@@ -1,13 +1,13 @@
 import adivinhacao
+import forca
 
 def game_menu():
   while True:
-    print('\n')
-    print('***************************************')
+    print('\n***************************************')
     print('*            Menu de jogos            *')
     print('***************************************\n')
 
-    print('(1) Adivinhação')
+    print('(1) Adivinhação (2) Forca')
     print('\n')
 
     option = int(input('Digite o número do jogo desejado (0 para sair): '))
@@ -16,6 +16,8 @@ def game_menu():
       break
     elif (option == 1):
       adivinhacao.play()
+    elif (option == 2):
+      forca.play()
     else:
       print('Opção inválida.')
       exit = input('Deseja voltar ao início? [y/n]\n')
@@ -28,8 +30,7 @@ def game_menu():
         print('O menu será encerrado.\n')
         break
 
-  print ('\n')
-  print('***************************************')
+  print('\n***************************************')
   print('*        Obrigada por jogar!          *')
   print('***************************************\n')
 
