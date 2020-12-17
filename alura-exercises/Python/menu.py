@@ -3,8 +3,7 @@ import forca
 
 def game_menu():
   while True:
-    print('\n')
-    print('***************************************')
+    print('\n***************************************')
     print('*            Menu de jogos            *')
     print('***************************************\n')
 
@@ -31,8 +30,7 @@ def game_menu():
         print('O menu será encerrado.\n')
         break
 
-  print ('\n')
-  print('***************************************')
+  print('\n***************************************')
   print('*        Obrigada por jogar!          *')
   print('***************************************\n')
 

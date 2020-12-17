@@ -1,8 +1,7 @@
 import random
 
 def play():
-  print('\n')
-  print('***************************************')
+  print('\n***************************************')
   print('*  Bem vindo ao jogo de Adivinhação!  *')
   print('***************************************\n')
 
@@ -35,7 +34,7 @@ def play():
     print('Sua tentativas esgotaram.')
     print(f'O número secreto era {secret_num}.\n')
   print(f'Sua pontuação foi {score}.\n')
-  print('***************************************')
+  print('\n***************************************')
   print('*            GAME OVER!               *')
   print('***************************************\n')
 
