@@ -17,8 +17,14 @@
 #     print(f"Saldo {account.balance}")
 
 class Account:
-  def __init__(self, id,holder, balance, limit):
+  def __init__(self, id, holder, balance, limit):
     self.id = id
     self.holder = holder
     self.balance = balance
     self.limit = limit
+  def deposit(self, value):
+    self.balance += value
+  def withdraw(self, value):
+    self.balance -= value
+  def statement(self):
+    print(f"Saldo da conta {self.id}: R${self.balance:.2f}")
