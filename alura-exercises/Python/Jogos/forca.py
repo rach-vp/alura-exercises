@@ -3,7 +3,7 @@
 import random
 
 def getRandomWord():
-  words_bank = open("liguagens.txt", "r")
+  words_bank = open("/media/raquel/Shared_SSD/01_OneDrive/Estudos/Alura/alura-exercises/Python/Jogos/linguagens.txt", "r")
   words = []
   for line in words_bank:
     words.append(line.strip().upper())
