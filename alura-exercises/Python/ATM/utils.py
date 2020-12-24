@@ -3,4 +3,4 @@ def check_y_n(question):
   while (answer.lower() != "y" and answer.lower() != "n"):
     print ("Opção inválida.")
     answer = input(f'{question} [y/n] ')
-  return answer
+  return answer.lower()

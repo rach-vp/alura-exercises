@@ -9,6 +9,10 @@ class Account:
     self.__limit = limit
 
   @property
+  def get_id(self):
+    return self.__id
+
+  @property
   def get_limit(self):
     return self.__limit
 
@@ -21,6 +25,13 @@ class Account:
     print(f"Titular: {self.__holder}")
     print(f"Saldo: R${self.__balance:.2f}")
     print(f"Limite disponível: R${self.__limit:.2f}")
+
+  def __statement_pos_operation(self):
+    answer = utils.check_y_n('Deseja consultar o extrato? [y/n]')
+    if (answer == "y"):
+      self.statement()
+    else:
+      print("Obrigada pela preferência!")
 
   def __is_overdue(self, value):
     return (self.__balance + self.__limit) < value
@@ -35,6 +46,7 @@ class Account:
 
   def deposit(self, value):
     self.__balance += value
+    self.__statement_pos_operation()
 
   def withdraw(self, value):
     if (self.__is_overdue(value)):
@@ -44,12 +56,9 @@ class Account:
     else:
       self.__balance -= value
       print(f"Transação efetuada com sucesso.")
-    answer = utils.check_y_n('Deseja consultar o extrato? [y/n]')
-    if (answer == "y"):
-      self.statement()
-    else:
-      print("Obrigada pela preferência!")
+    self.__statement_pos_operation()
 
   def transfer(self, value, target):
     self.withdraw(value)
     target.deposit(value)
+    self.__statement_pos_operation()
