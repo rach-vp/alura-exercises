@@ -3,49 +3,46 @@ import utils
 class Account:
 
   def __init__(self, id, holder, balance, limit = 1000):
-    self.__id = id
-    self.__holder = holder
-    self.__balance = balance
-    self.__limit = limit
+    self._id = id
+    self._holder = holder
+    self._balance = balance
+    self._limit = limit
 
   @property
   def get_id(self):
-    return self.__id
+    return self._id
 
   @property
   def get_limit(self):
-    return self.__limit
+    return self._limit
 
   @get_limit.setter
   def set_limit(self, limit):
-    self.__limit = limit
+    self._limit = limit
 
-  def statement(self):
-    print(f"\nConta: {self.__id}")
-    print(f"Titular: {self.__holder}")
-    print(f"Saldo: R${self.__balance:.2f}")
-    print(f"Limite disponível: R${self.__limit:.2f}")
+  def __str__(self):
+    return f"\nConta: {self._id}\nTitular: {self._holder}\nSaldo: R${self._balance:.2f}\nLimite disponível: R${self._limit:.2f}"
 
   def __statement_pos_operation(self):
     answer = utils.check_y_n('Deseja consultar o extrato? [y/n]')
     if (answer == "y"):
-      self.statement()
+      print(self)
     else:
-      print("Obrigada pela preferência!")
+      print("Agradecemos a preferência!")
 
   def __is_overdue(self, value):
-    return (self.__balance + self.__limit) < value
+    return (self._balance + self._limit) < value
 
   def __withdraw_from_limit(self, value):
     withdraw = False
-    if (value > self.__balance):
-      self.__balance = 0
-      self.__limit -= (value - self.__balance)
+    if (value > self._balance):
+      self._balance = 0
+      self._limit -= (value - self._balance)
       withdraw = True
     return withdraw
 
   def deposit(self, value):
-    self.__balance += value
+    self._balance += value
     self.__statement_pos_operation()
 
   def withdraw(self, value):
@@ -54,7 +51,7 @@ class Account:
     elif (self.__withdraw_from_limit(value)):
       print(f"Saque efetuado utilizando limite de crédito.")
     else:
-      self.__balance -= value
+      self._balance -= value
       print(f"Transação efetuada com sucesso.")
     self.__statement_pos_operation()
 

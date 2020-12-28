@@ -28,5 +28,5 @@ def create_account():
   else:
     account_data = Account(id, holder, balance)
   print("\nConta criada com sucesso!")
-  account_data.statement()
+  print(account_data)
   return account_data
