@@ -1,8 +1,8 @@
-from URL_arg_extract import URL_arg_extract
+from URL_arg_extract import URL_arg_extraction
 
 url = "www.bytebank.com.br/cambio?valor=1500&moedaOrigem=real&moedaDestino=dolar"
 
-exchange_data = URL_arg_extract(url)
+exchange_data = URL_arg_extraction(url)
 
 # exchange_request = url[url.find("?") + 1:]
 

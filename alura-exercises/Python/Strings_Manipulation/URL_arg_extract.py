@@ -1,6 +1,6 @@
 # url = "www.bytebank.com.br/cambio?valor=1500&moedaOrigem=real&moedaDestino=dolar"
 
-class URL_arg_extract:
+class URL_arg_extraction:
   def __init__(self, url):
     if self.is_url:
       self._url = url
@@ -20,7 +20,12 @@ class URL_arg_extract:
   def extract_value(self):
     value = str(self._arg_array[0])
     value = value[value.find("=") + 1:]
-    return value
+    try:
+      value = float(value)
+    except:
+      raise ValueError("Valor digitado não é um número!")
+    else:
+      return value
 
   def extract_origin_currency(self):
     origin_currency = str(self._arg_array[1])
