@@ -1,10 +1,10 @@
 import pickle
 from currency_db import Currency_db
 
-class URL_arg_extraction:
+class Currency_conversion_from_URL:
   def __init__(self, url):
     if self.is_url(url):
-      # URL manipulations
+      # URL manipulation
       self._url = url
       self._exchange_request = url[url.find("?") + 1:]
       self._arg_array = self._exchange_request.split("&")
@@ -25,9 +25,9 @@ class URL_arg_extraction:
       return False
 
   def __str__(self):
-    return self._exchange_request
+    return f">> Valor: {self.value()} / Moeda origem: {self.origin_currency()} / Moeda destino: {self.destination_currency()} / Valor destino: {self.conversion()} <<"
 
-  def extract_value(self):
+  def value(self):
     value = str(self._arg_array[0])
     value = value[value.find("=") + 1:]
     try:
@@ -37,18 +37,24 @@ class URL_arg_extraction:
     else:
       return value
 
-  def extract_origin_currency(self):
-    origin_currency = str(self._arg_array[1]).lower()
+  def origin_currency(self):
+    origin_currency = str(self._arg_array[1]).upper()
     origin_currency = origin_currency[origin_currency.find("=") + 1:]
     if origin_currency in self._currency_db_dict:
       return origin_currency
     else:
       return "Moeda origem não disponível para câmbio"
 
-  def extract_destination_currency(self):
-    destination_currency = str(self._arg_array[2]).lower()
+  def destination_currency(self):
+    destination_currency = str(self._arg_array[2]).upper()
     destination_currency = destination_currency[destination_currency.find("=") + 1:]
     if destination_currency in self._currency_db_dict:
       return destination_currency
     else:
       return "Moeda destino não disponível para câmbio"
+
+  def conversion(self):
+    value = self.value()
+    origin_factor = self._currency_db_dict[self.origin_currency()]
+    destination_factor = self._currency_db_dict[self.destination_currency()]
+    return (destination_factor / origin_factor) * value

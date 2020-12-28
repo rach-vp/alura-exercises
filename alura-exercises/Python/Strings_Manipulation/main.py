@@ -1,13 +1,9 @@
-from URL_arg_extract import URL_arg_extraction
+from currency_conversion import Currency_conversion_from_URL
 
-url = "https://www.bitebank.com.br/cambio?valor=1500&moedaOrigem=real&moedaDestino=dolar"
+url = "https://www.bytebank.com.br/cambio?valor=1500&moedaOrigem=BRL&moedaDestino=EUR"
 
-exchange_data = URL_arg_extraction(url)
+exchange_data = Currency_conversion_from_URL(url)
 
 # exchange_request = url[url.find("?") + 1:]
 
-print(URL_arg_extraction.is_url(url))
-
-print(f"Valor a ser convertido: {exchange_data.extract_value()}")
-print(f"Moedade origem: {exchange_data.extract_origin_currency()}")
-print(f"Moeda destino: {exchange_data.extract_destination_currency()}")
+print(exchange_data)
