@@ -2,7 +2,7 @@ import utils
 
 class Account:
 
-  def __init__(self, id, holder, balance, limit = 1000):
+  def __init__(self, id, holder, balance, limit):
     self._id = id
     self._holder = holder
     self._balance = balance
