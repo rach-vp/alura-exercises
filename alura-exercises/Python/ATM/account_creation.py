@@ -1,4 +1,5 @@
 from account import Account
+from accounts_db import Accounts_DB
 import random
 import utils
 import pickle
@@ -10,7 +11,6 @@ def create():
   limit = set_limit()
   add_account_to_db(id, holder, balance, limit)
   account_data = Account(id, holder, balance, limit)
-  print("\nConta criada com sucesso!")
   return account_data
 
 def set_balance():
@@ -28,28 +28,16 @@ def set_limit():
     limit = int(input("Digite o valor desejado do limite:"))
   return limit
 
-def add_account_to_dict(dict, id, holder, balance, limit):
-  dict[id] = {
-    "id": id,
-    "holder": holder,
-    "balance": balance,
-    "limit": limit,
-  }
-
 def add_account_to_db(id, holder, balance, limit):
-  path = "/media/raquel/Shared_SSD/01_OneDrive/Estudos/Alura/alura-exercises/Python/ATM/account_db.txt"
-  try:
-    with open(path, "rb") as db:
-      try:
-        accounts_db = pickle.load(db)
-        add_account_to_dict(accounts_db, id, holder, balance, limit)
-      except EOFError:
-        accounts_db = {}
-        add_account_to_dict(accounts_db, id, holder, balance, limit)
-      with open(path, "wb") as db:
-        pickle.dump(accounts_db, db)
-  except FileNotFoundError:
-    print("ERRO: Arquivo de banco de dados de contas não encontrado.")
-    print("Um novo arquivo de banco de dados foi criado.")
-    empty_db = open(path, "x").close()
+  accounts_db = Accounts_DB()
+  if (accounts_db.file_exists()):
+    new_account_dict = {id: {
+      "id": id,
+      "holder": holder,
+      "balance": balance,
+      "limit": limit
+    }}
+    accounts_db.update(new_account_dict)
+    print("\nConta criada com sucesso!")
+  else:
     print("Inicie a criação da conta novamente.")

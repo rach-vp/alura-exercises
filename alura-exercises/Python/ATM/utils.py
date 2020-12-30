@@ -1,3 +1,5 @@
+import pickle
+
 def check_y_n(question):
   answer = input(f'{question} [y/n] ')
   while (answer.lower() != "y" and answer.lower() != "n"):
