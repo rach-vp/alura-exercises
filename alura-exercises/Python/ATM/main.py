@@ -18,7 +18,7 @@ while True:
   print("\nO que deseja fazer?")
   selection = int(input("(1) Criar conta\n(2) Extrato\n(3) Saque\n(4) Depósito\n(5) Transferência\n(6) Verificar contas cadastradas\n(7) Encerrar acesso\n"))
 
-  if (selection > 7 | selection < 1):
+  if (selection > 7 or selection < 1):
     print("Opção inválida")
   elif (selection == 7):
     print("O acesso será encerrado.")

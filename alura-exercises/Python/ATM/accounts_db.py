@@ -18,6 +18,9 @@ class Accounts_DB:
   def get_path(self):
     return self._path
 
+  def __iter__(self):
+    pass
+
   def print_db(self):
     pprint.pprint(self._db)
 
