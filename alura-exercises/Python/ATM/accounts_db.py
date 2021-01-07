@@ -9,6 +9,7 @@ class Accounts_DB:
         self._db = pickle.load(db)
     else:
       self._db = {}
+    self._index = 0
 
   @property
   def get_db(self):
@@ -19,7 +20,17 @@ class Accounts_DB:
     return self._path
 
   def __iter__(self):
-    pass
+    return iter(self._db)
+
+  def __getitem__(self, key):
+    return self._db[key]
+
+  # def __next__(self):
+  #   while (self._index < len(self._db)):
+  #     self._index += 1
+  #     return self._db[self._index]
+  #   self._index = 0
+  #   StopIteration
 
   def print_db(self):
     pprint.pprint(self._db)

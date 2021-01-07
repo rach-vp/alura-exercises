@@ -24,7 +24,7 @@ class Account:
     return f"\nConta: {self._id}\nTitular: {self._holder}\nSaldo: R${self._balance:.2f}\nLimite disponível: R${self._limit:.2f}"
 
   def __statement_pos_operation(self):
-    answer = utils.check_y_n('Deseja consultar o extrato? [y/n]')
+    answer = utils.check_y_n('Deseja consultar o extrato?')
     if (answer == "y"):
       print(self)
     else:
