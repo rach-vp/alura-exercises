@@ -1,8 +1,3 @@
-## Development of a Guessing Game using Python
-## Exercises proposed at the Python Course at Grupo Alura
+# Python first steps
 
-#### Features added at each commit.
-
-  1- Welcome message
-  2- Game creation
-  3- Specification of guess higher or lower then secret number
+**Development of two games:** "Guess the number" and "Hanged!"
