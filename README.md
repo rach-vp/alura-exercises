@@ -6,32 +6,33 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 
 ## Theme's in my study plan
 
-:thought_baloon: - To study
-:hourglass_flowing_sand: - On going
-:white_check_mark: - Concluded
+- 💭  - To study
+- :hourglass_flowing_sand: - On going
+- :white_check_mark: - Concluded
 
 ### Programming Languages
 
-    - :hourglass_flowing_sand: Python
-    - :thought_baloon: PHP
-    - :thought_baloon: Django
-    - :thought_baloon: NodeJS
-    - :hourglass_flowing_sand: jQuery
+- :hourglass_flowing_sand: Python
+- 💭  PHP
+- 💭  Django
+- 💭  NodeJS
+- 💭  jQuery
 
 ### Front-end
 
-    - :hourglass_flowing_sand: Front-end
-    - :thought_baloon: Angular
-    - :thought_baloon: React JS
-    - :thought_baloon: Vue.JS
+- :hourglass_flowing_sand: Front-end
+- :thought_baloon: Angular
+💭 Bootstrap
+- 💭 React JS
+- :thought_baloon: Vue.JS
 
 ### DevOps
 
-    - :thought_baloon: DevOps
-    - :thought_baloon: OWASP
+- 💭 DevOps
+- 💭 OWASP
 
 ### Data Science
 
-    - :thought_baloon: PostgreSQL
-    - :thought_baloon: PowerBI
-    - :thought_baloon: Python for Data Science
+- 💭 PostgreSQL
+- 💭 PowerBI
+- 💭 Python for Data Science
