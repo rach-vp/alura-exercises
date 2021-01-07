@@ -25,13 +25,6 @@ class Accounts_DB:
   def __getitem__(self, key):
     return self._db[key]
 
-  # def __next__(self):
-  #   while (self._index < len(self._db)):
-  #     self._index += 1
-  #     return self._db[self._index]
-  #   self._index = 0
-  #   StopIteration
-
   def print_db(self):
     pprint.pprint(self._db)
 
@@ -55,7 +48,10 @@ class Accounts_DB:
 
   def update(self, new_obj1, new_obj2 = {}):
     with open(self._path, "wb") as db:
-      self._db.update(new_obj1)
-      if (new_obj2):
-        self._db.update(new_obj2)
-      pickle.dump(self._db, db)
+      try:
+        self._db.update(new_obj1)
+        if (new_obj2):
+          self._db.update(new_obj2)
+        pickle.dump(self._db, db)
+      except:
+        db.close()

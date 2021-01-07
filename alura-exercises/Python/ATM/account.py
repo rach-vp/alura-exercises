@@ -9,8 +9,13 @@ class Account:
     self._limit = limit
 
   @property
-  def get_id(self):
-    return self._id
+  def get_account_info(self):
+    return {self._id: {
+      'id': self._id,
+      'holder': self._holder,
+      'balance': self._balance,
+      'limit': self._limit,
+    }}
 
   @property
   def get_limit(self):

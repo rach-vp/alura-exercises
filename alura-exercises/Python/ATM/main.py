@@ -36,14 +36,18 @@ while True:
       elif (selection == 3):
         value = int(input("Digite o valor do saque: "))
         account.withdraw(value)
+        db_account.update(account.get_account_info)
       elif (selection == 4):
         value = int(input("Digite o valor do depósito: "))
         account.deposit(value)
+        db_account.update(account.get_account_info)
       else:
         account2 = input("Digite o número da conta destino: ")
         if (account2 in db_account):
+          account2 = Account(db_account[account2]['id'], db_account[account2]['holder'], db_account[account2]['balance'], db_account[account2]['limit'])
           value = int(input("Digite o valor da transferência: "))
-          account.deposit(value)
+          account.transfer(value, account2)
+          db_account.update(account.get_account_info, account2.get_account_info)
         else:
           print(f"Conta destino > {account2} < inválida.")
     else:
