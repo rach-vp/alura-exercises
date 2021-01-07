@@ -21,10 +21,10 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 ### Front-end
 
 - :hourglass_flowing_sand: Front-end
-- :thought_baloon: Angular
-💭 Bootstrap
+- 💭 Angular
+- 💭 Bootstrap
 - 💭 React JS
-- :thought_baloon: Vue.JS
+- 💭 Vue.JS
 
 ### DevOps
 
