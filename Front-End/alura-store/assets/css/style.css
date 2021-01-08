@@ -1,14 +1,23 @@
 .app {
-    background: #f1f1f1;
-    display: grid;  
-    font-family: Arial, Helvetica, sans-serif;
+  background: #f1f1f1;
+  display: grid;
+  font-family: Arial, Helvetica, sans-serif;
+  grid-template-areas:
+    "header"
+    "content"
+    "footer";
+  grid-template-columns: auto;
+  grid-template-rows: 50px 300px 100px;
 }
 
-.cabecalho {
-}
- 
-.conteudo {
+.header {
+  grid-area: header;
 }
 
-.rodape {
+.content {
+  grid-area: content;
+}
+
+.footer {
+  grid-area: footer;
 }
