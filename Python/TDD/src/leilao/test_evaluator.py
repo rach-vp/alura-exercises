@@ -4,66 +4,53 @@ from src.leilao.domain import User, Evaluator, Bid, Auction
 # python -m unittest src/leilao/test_evaluator.py
 
 class TestEvaluator(TestCase):
+    def setUp(self):
+        self.user1 = User('Raquel')
+        self.user2 = User('Will')
+        self.evaluator = Evaluator()
+        self.user2_bid = Bid(self.user2, 150)
+        self.user1_bid = Bid(self.user1, 100)
+        self.auction = Auction('Celular')
+
+
     def test_two_ordered_bids(self):
-        user1 = User('Raquel')
-        user2 = User('Will')
-        evaluator = Evaluator()
+        self.auction.bids.append(self.user1_bid)
+        self.auction.bids.append(self.user2_bid)
 
-        user2_bid = Bid(user2, 150)
-        user1_bid = Bid(user1, 100)
-
-        auction = Auction('Celular')
-
-        auction.bids.append(user1_bid)
-        auction.bids.append(user2_bid)
-
-        for bid in auction.bids:
+        for bid in self.auction.bids:
             print(bid)
 
-        evaluator.evaluate(auction)
+        self.evaluator.evaluate(self.auction)
 
         # expected result
         lowest_bid_expected = 100
         greater_bid_expected = 150
 
-        self.assertEqual(lowest_bid_expected, evaluator.lowest_bid)
-        self.assertEqual(greater_bid_expected, evaluator.greatest_bid)
+        self.assertEqual(lowest_bid_expected, self.evaluator.lowest_bid)
+        self.assertEqual(greater_bid_expected, self.evaluator.greatest_bid)
 
     def test_two_unordered_bids(self):
-        user1 = User('Raquel')
-        user2 = User('Will')
-        evaluator = Evaluator()
+        self.auction.bids.append(self.user2_bid)
+        self.auction.bids.append(self.user1_bid)
 
-        user2_bid = Bid(user2, 150)
-        user1_bid = Bid(user1, 100)
-
-        auction = Auction('Celular')
-
-        auction.bids.append(user2_bid)
-        auction.bids.append(user1_bid)
-
-        for bid in auction.bids:
+        for bid in self.auction.bids:
             print(bid)
 
-        evaluator.evaluate(auction)
+        self.evaluator.evaluate(self.auction)
 
         # expected result
         lowest_bid_expected = 100
         greater_bid_expected = 150
 
-        self.assertEqual(lowest_bid_expected, evaluator.lowest_bid)
-        self.assertEqual(greater_bid_expected, evaluator.greatest_bid)
+        self.assertEqual(lowest_bid_expected, self.evaluator.lowest_bid)
+        self.assertEqual(greater_bid_expected, self.evaluator.greatest_bid)
 
-    def test_only_bid(self):
-        user = 'Raquel'
-        evaluator = Evaluator()
+    def test_single_bid(self):
+        self.auction.bids.append(self.user1_bid)
 
-        user_bid = Bid(user, 150)
+        self.evaluator.evaluate(self.auction)
 
-        auction = Auction('Celular')
-        auction.bids.append(user_bid)
+        lowest_bid_expected = greater_bid_expected = self.user1_bid.value
 
-        evaluator.evaluate(auction)
-
-        self.assertEqual(150, evaluator.lowest_bid)
-        self.assertEqual(150, evaluator.greatest_bid)
+        self.assertEqual(lowest_bid_expected, self.evaluator.lowest_bid)
+        self.assertEqual(greater_bid_expected, self.evaluator.greatest_bid)
