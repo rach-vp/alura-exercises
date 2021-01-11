@@ -1,11 +1,11 @@
-from domain import User, Bid, Auction, Evaluator
+from domain import User, Evaluator, Bid, Auction
 
 user1 = User('Raquel')
 user2 = User('Will')
 evaluator = Evaluator()
 
-user2_bid = Bid(user2, 150)
 user1_bid = Bid(user1, 100)
+user2_bid = Bid(user2, 150)
 
 auction = Auction('Celular')
 

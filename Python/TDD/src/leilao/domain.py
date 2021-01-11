@@ -1,6 +1,5 @@
 import sys
 
-
 class User:
 
     def __init__(self, name):
@@ -46,7 +45,10 @@ class Evaluator:
 
     def evaluate(self, auction: Auction):
         for bid in auction.bids:
-            if bid.value > self._greatest_bid:
+            if self._greatest_bid == sys.float_info.min or self._lowest_bid == sys.float_info.max:
+                self._greatest_bid = bid.value
+                self._lowest_bid = bid.value
+            elif bid.value > self._greatest_bid:
                 self._greatest_bid = bid.value
             elif bid.value < self._lowest_bid:
                 self._lowest_bid = bid.value
