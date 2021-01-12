@@ -17,7 +17,7 @@ class Bid:
         self.value = value
 
     def __str__(self):
-        return f"User **{self.user._name}** bid **${self.value:.2f}** <"
+        return f"\nUser **{self.user._name}** bid **${self.value:.2f}** <"
 
 
 class Auction:
@@ -25,17 +25,11 @@ class Auction:
     def __init__(self, description):
         self.description = description
         self._bids = []
-
-    @property
-    def bids(self):
-        return self._bids
-
-
-class Evaluator:
-
-    def __init__(self):
         self._greatest_bid = sys.float_info.min
         self._lowest_bid = sys.float_info.max
+
+    @property
+    def bids(self): return self._bids[:]
 
     @property
     def greatest_bid(self): return self._greatest_bid
@@ -43,15 +37,15 @@ class Evaluator:
     @property
     def lowest_bid(self): return self._lowest_bid
 
-    def evaluate(self, auction: Auction):
-        for bid in auction.bids:
-            if self._greatest_bid == sys.float_info.min or self._lowest_bid == sys.float_info.max:
-                self._greatest_bid = bid.value
-                self._lowest_bid = bid.value
-            elif bid.value > self._greatest_bid:
-                self._greatest_bid = bid.value
-            elif bid.value < self._lowest_bid:
-                self._lowest_bid = bid.value
+    def __str__(self):
+        return f"\nBids: {len(self._bids)}\nGreatest bid: ${self._greatest_bid:.2f}\nLowest bid: ${self._lowest_bid:.2f}"
 
-    def auction_status(self):
-        return f"Greatest bid: ${self._greatest_bid:.2f}\nLowest bid: ${self._lowest_bid:.2f}"
+    def propose(self, bid):
+        self._bids.append(bid)
+        if self._greatest_bid == sys.float_info.min or self._lowest_bid == sys.float_info.max:
+            self._greatest_bid = bid.value
+            self._lowest_bid = bid.value
+        elif bid.value > self._greatest_bid:
+            self._greatest_bid = bid.value
+        elif bid.value < self._lowest_bid:
+            self._lowest_bid = bid.value
