@@ -53,3 +53,30 @@ class TestAuction(TestCase):
 
         self.assertEqual(lowest_bid_expected, self.auction.lowest_bid)
         self.assertEqual(greater_bid_expected, self.auction.greatest_bid)
+
+    # If auction has no bids, must allow a new bid
+    def test_allow_bid_if_no_bids(self):
+        self.auction.propose(self.user1_bid)
+
+        expected_amount = 1
+
+        self.assertEqual(expected_amount, len(self.auction.bids))
+
+    # If last user is different, must allow proposing a bid
+    def test_if_different_user_allow_new_bid(self):
+        self.auction.propose(self.user1_bid)
+        self.auction.propose(self.user2_bid)
+
+        expected_amount = 2
+
+        self.assertEqual(expected_amount,len(self.auction.bids))
+
+    # If last user is the same, must not allow proposing a bid
+    def test_if_same_user_not_allow_bid(self):
+        self.auction.propose(self.user1_bid)
+        new_user1_bid = Bid(self.user1, 200)
+        self.auction.propose(new_user1_bid)
+
+        expected_amount = 1
+
+        self.assertEqual(expected_amount, len(self.auction.bids))

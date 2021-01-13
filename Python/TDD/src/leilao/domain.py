@@ -40,12 +40,19 @@ class Auction:
     def __str__(self):
         return f"\nBids: {len(self._bids)}\nGreatest bid: ${self._greatest_bid:.2f}\nLowest bid: ${self._lowest_bid:.2f}"
 
+    def is_same_user(self, bid):
+        is_same = True
+        if (not self._bids or self._bids[-1].user != bid.user):
+            is_same = False
+        return is_same
+
     def propose(self, bid):
-        self._bids.append(bid)
-        if self._greatest_bid == sys.float_info.min or self._lowest_bid == sys.float_info.max:
-            self._greatest_bid = bid.value
-            self._lowest_bid = bid.value
-        elif bid.value > self._greatest_bid:
-            self._greatest_bid = bid.value
-        elif bid.value < self._lowest_bid:
-            self._lowest_bid = bid.value
+        if (not self.is_same_user(bid)):
+            self._bids.append(bid)
+            if self._greatest_bid == sys.float_info.min or self._lowest_bid == sys.float_info.max:
+                self._greatest_bid = bid.value
+                self._lowest_bid = bid.value
+            elif bid.value > self._greatest_bid:
+                self._greatest_bid = bid.value
+            elif bid.value < self._lowest_bid:
+                self._lowest_bid = bid.value
