@@ -1,9 +1,9 @@
 from unittest import TestCase
 from src.leilao.domain import User, Bid, Auction
 
-# python -m unittest src/leilao/test_evaluator.py
+# python -m unittest src/leilao/test_auction.py
 
-class TestEvaluator(TestCase):
+class TestAuction(TestCase):
     def setUp(self):
         self.user1 = User('Raquel')
         self.user2 = User('Will')
