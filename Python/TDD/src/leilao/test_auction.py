@@ -16,33 +16,16 @@ class TestAuction(TestCase):
         self.auction.propose(self.user1_bid)
         self.auction.propose(self.user2_bid)
 
-        for bid in self.auction.bids:
-            print(bid)
-
-        # expected result
-        lowest_bid_expected = 100
-        greater_bid_expected = 150
-
-        print(self.auction)
-
-        self.assertEqual(lowest_bid_expected, self.auction.lowest_bid)
-        self.assertEqual(greater_bid_expected, self.auction.greatest_bid)
-
-    def test_two_unordered_bids(self):
-        self.auction.propose(self.user2_bid)
-        self.auction.propose(self.user1_bid)
-
-        for bid in self.auction.bids:
-            print(bid)
-
-        print(self.auction)
-
-        # expected result
         lowest_bid_expected = 100
         greater_bid_expected = 150
 
         self.assertEqual(lowest_bid_expected, self.auction.lowest_bid)
         self.assertEqual(greater_bid_expected, self.auction.greatest_bid)
+
+    def test_not_allow_decreasing_bids(self):
+        with self.assertRaises(ValueError):
+            self.auction.propose(self.user2_bid)
+            self.auction.propose(self.user1_bid)
 
     def test_single_bid(self):
         self.auction.propose(self.user1_bid)
@@ -73,10 +56,8 @@ class TestAuction(TestCase):
 
     # If last user is the same, must not allow proposing a bid
     def test_if_same_user_not_allow_bid(self):
-        self.auction.propose(self.user1_bid)
         new_user1_bid = Bid(self.user1, 200)
-        self.auction.propose(new_user1_bid)
 
-        expected_amount = 1
-
-        self.assertEqual(expected_amount, len(self.auction.bids))
+        with self.assertRaises(ValueError):
+            self.auction.propose(self.user1_bid)
+            self.auction.propose(new_user1_bid)

@@ -46,8 +46,14 @@ class Auction:
             is_same = False
         return is_same
 
+    def is_in_ascending_order(self,bid):
+        is_ascending = True
+        if (self._bids and self._bids[-1].value > bid.value):
+            is_ascending = False
+        return is_ascending
+
     def propose(self, bid):
-        if (not self.is_same_user(bid)):
+        if (not self.is_same_user(bid) and self.is_in_ascending_order(bid)):
             self._bids.append(bid)
             if self._greatest_bid == sys.float_info.min or self._lowest_bid == sys.float_info.max:
                 self._greatest_bid = bid.value
@@ -56,3 +62,5 @@ class Auction:
                 self._greatest_bid = bid.value
             elif bid.value < self._lowest_bid:
                 self._lowest_bid = bid.value
+        else:
+            raise ValueError("Same user can't propose two following bids")
