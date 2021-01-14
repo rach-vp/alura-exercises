@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.leilao.domain import User, Bid, Auction
+from src.leilao.exceptions import InvalidBid
 
 # python -m unittest src/leilao/test_auction.py
 
@@ -23,7 +24,7 @@ class TestAuction(TestCase):
         self.assertEqual(greater_bid_expected, self.auction.greatest_bid)
 
     def test_not_allow_decreasing_bids(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InvalidBid):
             self.auction.propose(self.user2_bid)
             self.auction.propose(self.user1_bid)
 
@@ -58,6 +59,6 @@ class TestAuction(TestCase):
     def test_if_same_user_not_allow_bid(self):
         new_user1_bid = Bid(self.user1, 200)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InvalidBid):
             self.auction.propose(self.user1_bid)
             self.auction.propose(new_user1_bid)

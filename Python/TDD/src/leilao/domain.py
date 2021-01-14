@@ -1,3 +1,5 @@
+from src.leilao.exceptions import InvalidBid
+
 class User:
 
     def __init__(self, name, balance):
@@ -12,7 +14,7 @@ class User:
 
     def place_proposal(self, auction, value):
         if (value > self._balance):
-            raise ValueError('Bid value is greater than user balance.')
+            raise InvalidBid('Bid value is greater than user balance.')
         auction.propose(Bid(self, value))
         self._balance -= value
 
@@ -46,16 +48,14 @@ class Auction:
         return f'\nBids: {len(self._bids)}\nGreatest bid: ${self._greatest_bid:.2f}\nLowest bid: ${self._lowest_bid:.2f}'
 
     def is_same_user(self, bid):
-        is_same = True
         if (not self._bids or self._bids[-1].user != bid.user):
-            is_same = False
-        return is_same
+            return False
+        raise InvalidBid('Same usar cannot bid twice in a row')
 
     def is_in_ascending_order(self,bid):
-        is_ascending = True
         if (self._bids and self._bids[-1].value > bid.value):
-            is_ascending = False
-        return is_ascending
+            raise InvalidBid('Bid value is lower than previous bid value.')
+        return True
 
     def propose(self, bid):
         if (not self.is_same_user(bid) and self.is_in_ascending_order(bid)):
@@ -63,5 +63,3 @@ class Auction:
                 self._lowest_bid = bid.value
             self._greatest_bid = bid.value
             self._bids.append(bid)
-        else:
-            raise ValueError("Same user can't propose two following bids")

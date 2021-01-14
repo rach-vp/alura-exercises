@@ -1,4 +1,5 @@
 from src.leilao.domain import User, Auction
+from src.leilao.exceptions import InvalidBid
 import pytest
 
 @pytest.fixture
@@ -25,5 +26,5 @@ def test_allow_proposal_if_value_is_equal_then_balance(user, auction):
   assert user.balance == 0
 
 def test_forbidden_proposal_if_value_is_greater_than_balance(user, auction):
-  with pytest.raises(ValueError):
+  with pytest.raises(InvalidBid):
     user.place_proposal(auction, 120)
