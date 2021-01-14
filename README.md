@@ -12,7 +12,7 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 
 ### Programming Languages
 
-- :hourglass_flowing_sand: Python
+- :white_check_mark: Python
 - 💭  PHP
 - 💭  Django
 - 💭  NodeJS
