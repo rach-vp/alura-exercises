@@ -5,11 +5,11 @@ from src.leilao.domain import User, Bid, Auction
 
 class TestAuction(TestCase):
     def setUp(self):
-        self.user1 = User('Raquel')
-        self.user2 = User('Will')
+        self.user1 = User('Raquel', 500)
+        self.user2 = User('Will', 500)
         self.user2_bid = Bid(self.user2, 150)
         self.user1_bid = Bid(self.user1, 100)
-        self.auction = Auction('Celular')
+        self.auction = Auction('Smartphone')
 
 
     def test_two_ordered_bids(self):

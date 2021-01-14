@@ -2,12 +2,19 @@ import sys
 
 class User:
 
-    def __init__(self, name):
+    def __init__(self, name, balance):
         self._name = name
+        self._balance = balance
 
     @property
-    def name(self):
-        return self._name
+    def name(self): return self._name
+
+    @property
+    def balance(self): return self._balance
+
+    def place_proposal(self, auction, value):
+        auction.propose(Bid(self, value))
+        self._balance -= value
 
 
 class Bid:
