@@ -1,5 +1,3 @@
-import sys
-
 class User:
 
     def __init__(self, name, balance):
@@ -13,6 +11,8 @@ class User:
     def balance(self): return self._balance
 
     def place_proposal(self, auction, value):
+        if (value > self._balance):
+            raise ValueError('Bid value is greater than user balance.')
         auction.propose(Bid(self, value))
         self._balance -= value
 
@@ -24,7 +24,7 @@ class Bid:
         self.value = value
 
     def __str__(self):
-        return f"\nUser **{self.user._name}** bid **${self.value:.2f}** <"
+        return f'\nUser **{self.user._name}** bid **${self.value:.2f}** <'
 
 
 class Auction:
@@ -32,8 +32,6 @@ class Auction:
     def __init__(self, description):
         self.description = description
         self._bids = []
-        self._greatest_bid = sys.float_info.min
-        self._lowest_bid = sys.float_info.max
 
     @property
     def bids(self): return self._bids[:]
@@ -45,7 +43,7 @@ class Auction:
     def lowest_bid(self): return self._lowest_bid
 
     def __str__(self):
-        return f"\nBids: {len(self._bids)}\nGreatest bid: ${self._greatest_bid:.2f}\nLowest bid: ${self._lowest_bid:.2f}"
+        return f'\nBids: {len(self._bids)}\nGreatest bid: ${self._greatest_bid:.2f}\nLowest bid: ${self._lowest_bid:.2f}'
 
     def is_same_user(self, bid):
         is_same = True
@@ -61,13 +59,9 @@ class Auction:
 
     def propose(self, bid):
         if (not self.is_same_user(bid) and self.is_in_ascending_order(bid)):
+            if (not self._bids):
+                self._lowest_bid = bid.value
+            self._greatest_bid = bid.value
             self._bids.append(bid)
-            if self._greatest_bid == sys.float_info.min or self._lowest_bid == sys.float_info.max:
-                self._greatest_bid = bid.value
-                self._lowest_bid = bid.value
-            elif bid.value > self._greatest_bid:
-                self._greatest_bid = bid.value
-            elif bid.value < self._lowest_bid:
-                self._lowest_bid = bid.value
         else:
             raise ValueError("Same user can't propose two following bids")
