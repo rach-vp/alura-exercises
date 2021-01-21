@@ -13,18 +13,18 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 ### Programming Languages
 
 - :white_check_mark: Python
+- :hourglass_flowing_sand:  jQuery
 - 💭  PHP
 - 💭  Django
 - 💭  NodeJS
-- 💭  jQuery
 
 ### Front-end
 
 - :hourglass_flowing_sand: Front-end
+- :hourglass_flowing_sand: Bootstrap
+- :hourglass_flowing_sand: Vue.JS
 - 💭 Angular
-- 💭 Bootstrap
 - 💭 React JS
-- 💭 Vue.JS
 
 ### DevOps
 
