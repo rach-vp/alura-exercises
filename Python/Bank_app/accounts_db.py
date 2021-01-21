@@ -3,7 +3,7 @@ import pprint
 
 class Accounts_DB:
   def __init__(self):
-    self._path = "/media/raquel/Shared_SSD/01_OneDrive/Estudos/Alura/alura-exercises/Python/ATM/account_db.txt"
+    self._path = "/media/raquel/Shared_SSD/01_OneDrive/Estudos/Alura/Python/Bank_app/account_db.txt"
     if (self.file_exists()):
       with open(self._path, "rb") as db:
         self._db = pickle.load(db)
