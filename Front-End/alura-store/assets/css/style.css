@@ -11,11 +11,15 @@
 }
 
 .header {
+  align-items: center;
+  display: flex;
   grid-area: header;
+  padding: 0 2rem;
 }
 
 .content {
   grid-area: content;
+  padding: 0 2rem;
 }
 
 .footer {
