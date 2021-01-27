@@ -1,0 +1,1 @@
+module.exports = app => app.get('/appointments', (req, res) => res.send('You are getting the appointments rout'));

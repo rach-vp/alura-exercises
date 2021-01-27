@@ -1,6 +1,6 @@
-const express = require('express');
+const customExpress = require("./config/customExpress");
 
-const app = express();
+const cExpress = require('./config/customExpress');
 
+const app = cExpress();
 app.listen(3000, () => console.log('Server listening on port 3000'));
-app.get('/appointments', (req, res) => res.send('Server GETting. All good\nXABLAAAAU'));
