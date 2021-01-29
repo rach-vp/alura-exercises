@@ -12,4 +12,10 @@ module.exports = app => {
     Appointment.add(appointment, res);
     res.send('POST appointment');
   });
+
+  app.patch('/appointments/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const values = req.body;
+    Appointment.change(id, values, res);
+  });
 }

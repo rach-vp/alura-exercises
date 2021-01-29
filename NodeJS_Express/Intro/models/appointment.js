@@ -48,6 +48,15 @@ class Appointment {
     connection.query(sql, (error, results) =>
       error ? result.status(400).json() : result.status(200).json(results[0]));
   }
+
+  change(id, appointment, result) {
+    const sql = `UPDATE Appointments SET ? WHERE id=?`;
+
+    connection.query(sql, [appointment, id], (error, results) => {
+      if (appointment.data) { appointment.data = moment(appointment.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS') }
+      error ? result.status(400).json() : result.status(200).json(results);
+    });
+  }
 }
 
 module.exports = new Appointment;
