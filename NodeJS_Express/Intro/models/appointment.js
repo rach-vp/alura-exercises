@@ -7,7 +7,8 @@ class Appointment {
     const data = moment(appointment.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS');
     const appointmentFullRecord = {...appointment, dataCreation, data};
     const sql = 'INSERT INTO Appointments SET ?';
-    connection.query(sql, appointmentFullRecord, (erro, result) => erro ? console.log(erro) : console.log(result));
+    connection.query(sql, appointmentFullRecord,
+      (erro, result) => erro ? result.status(400).json(erro) : result.status(201).json(result));
   }
 }
 
