@@ -16,6 +16,12 @@ module.exports = app => {
   app.patch('/appointments/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const values = req.body;
-    Appointment.change(id, values, res);
+    Appointment.update(id, values, res);
+  });
+
+  app.delete('/appointments/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    Appointment.delete(id, res);
   });
 }

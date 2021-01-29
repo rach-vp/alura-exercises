@@ -31,7 +31,7 @@ class Appointment {
       const appointmentFullRecord = {...appointment, dataCreation, data};
       const sql = 'INSERT INTO Appointments SET ?';
       connection.query(sql, appointmentFullRecord,
-        (erro) => erro ? result.status(400).json(erro) : result.status(201).json(result));
+        (erro) => erro ? result.status(400).json(erro) : result.status(201).json(appointment));
     }
 
   }
@@ -49,13 +49,22 @@ class Appointment {
       error ? result.status(400).json() : result.status(200).json(results[0]));
   }
 
-  change(id, appointment, result) {
-    const sql = `UPDATE Appointments SET ? WHERE id=?`;
+  update(id, appointment, result) {
+    const sql = 'UPDATE Appointments SET ? WHERE id=?';
 
-    connection.query(sql, [appointment, id], (error, results) => {
-      if (appointment.data) { appointment.data = moment(appointment.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS') }
-      error ? result.status(400).json() : result.status(200).json(results);
+    connection.query(sql, [appointment, id], (error) => {
+      if (appointment.data) {
+        appointment.data = moment(appointment.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS');
+      }
+      error ? result.status(400).json() : result.status(200).json({ ...appointment, id });
     });
+  }
+
+  delete(id, result) {
+    const sql = 'DELETE FROM Appointments WHERE id=?';
+
+    connection.query(sql, (error, results) =>
+      error ? result.status(400).json() : result.status(200).json({ id }));
   }
 }
 
