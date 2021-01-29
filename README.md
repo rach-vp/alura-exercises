@@ -16,7 +16,7 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 - :hourglass_flowing_sand:  jQuery
 - 💭  PHP
 - 💭  Django
-- 💭  NodeJS
+- :hourglass_flowing_sand:  NodeJS
 
 ### Front-end
 
