@@ -35,6 +35,19 @@ class Appointment {
     }
 
   }
+
+  list(result) {
+    const sql = 'SELECT * FROM Appointments';
+
+    connection.query(sql, (error, results) => error ? result.status(400).json(error) : result.status(200).json(results));
+  }
+
+  queryID (id, result) {
+    const sql = `SELECT * FROM Appointments WHERE id=${id}`;
+
+    connection.query(sql, (error, results) =>
+      error ? result.status(400).json() : result.status(200).json(results[0]));
+  }
 }
 
 module.exports = new Appointment;

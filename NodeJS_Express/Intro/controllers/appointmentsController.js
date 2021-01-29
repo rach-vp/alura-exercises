@@ -1,7 +1,12 @@
 const Appointment = require('../models/appointment');
 
 module.exports = app => {
-  app.get('/appointments', (req, res) => res.send('You are at appointments rout using GET'));
+  app.get('/appointments', (req, res) => Appointment.list(res));
+  app.get('/appointments/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    Appointment.queryID(id, res);
+  });
+
   app.post('/appointments', (req, res) => {
     const appointment = req.body;
     Appointment.add(appointment, res);
