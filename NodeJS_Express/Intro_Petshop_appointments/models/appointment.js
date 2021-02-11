@@ -1,5 +1,6 @@
 const connection = require('../infra/connection');
 const moment = require('moment');
+const { default: axios } = require('axios');
 
 class Appointment {
   add(appointment, result) {
@@ -24,16 +25,22 @@ class Appointment {
       }
     ];
     const errors = validations.filter(({ valid }) => !valid);
+    console.log(errors);
 
     if (errors.length) {
       result.status(400).json(errors) }
     else {
       const appointmentFullRecord = {...appointment, dataCreation, data};
       const sql = 'INSERT INTO Appointments SET ?';
-      connection.query(sql, appointmentFullRecord,
-        (erro) => erro ? result.status(400).json(erro) : result.status(201).json(appointment));
+      connection.query(sql, appointmentFullRecord, (error) => {
+        if (error) {
+          result.status(400).json(error);
+        } else {
+          result.status(201).json(appointment);
+        }
+      });
+        // (error) => error ? result.status(400).json(error) : result.status(201).json(appointment));
     }
-
   }
 
   list(result) {
@@ -45,8 +52,17 @@ class Appointment {
   queryID (id, result) {
     const sql = `SELECT * FROM Appointments WHERE id=${id}`;
 
-    connection.query(sql, (error, results) =>
-      error ? result.status(400).json() : result.status(200).json(results[0]));
+    connection.query(sql, async (error, results) => {
+      const queriedAppointment = results[0];
+      const cpf = queriedAppointment.client;
+
+      if (error) { result.status(400).json(); }
+      else {
+        const { data } = await axios.get(`http://localhost:8082/${cpf}`);
+        queriedAppointment.client = data;
+        result.status(200).json(queriedAppointment);
+      }
+    });
   }
 
   update(id, appointment, result) {
