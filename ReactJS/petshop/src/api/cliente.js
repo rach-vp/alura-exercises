@@ -1,10 +1,10 @@
 const listarClientes = () => {
     return fetch('http://localhost:4000/clientes')
-    .then( resposta => { 
+    .then( resposta => {
       return resposta.json()
     })
-    .then( json => { 
-      return json 
+    .then( json => {
+      return json
     })
 }
 
@@ -20,10 +20,10 @@ const cadastrarClientes = (nome, cpf) =>  {
     },
     body: json
   })
-  .then( resp => { 
+  .then( resp => {
     return resp.body
   })
-} 
+}
 
 const deletaCliente = id => {
   return fetch(`http://localhost:4000/clientes/cliente/${id}`, {
@@ -31,10 +31,10 @@ const deletaCliente = id => {
 })}
 
 
-const detalhaCliente = id => { 
+const detalhaCliente = id => {
   return fetch(`http://localhost:4000/clientes/cliente/${id}`,{
     method: 'GET'
-  }) 
+  })
   .then(resposta => {
     return resposta.json()
   })
@@ -54,3 +54,10 @@ const editaCliente = (id, cpf, nome) => {
   })
 }
 
+export {
+  listarClientes,
+  cadastrarClientes,
+  deletaCliente,
+  detalhaCliente,
+  editaCliente,
+};
