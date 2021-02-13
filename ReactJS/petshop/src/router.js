@@ -1,9 +1,11 @@
-import inicializaCadastro from './componentes/cadastro/CadastroClientes';
 import criaTabela from './componentes/lista/listagem-cliente';
+import inicializaCadastro from './componentes/cadastro/CadastroClientes';
+import inicializaEdicao from './componentes/edita/EditaCliente';
 
 const rotas = {
   '/': criaTabela,
   '/cadastro': inicializaCadastro,
+  '/edita': inicializaEdicao,
 }
 
 const rootDiv = document.querySelector('[data-container]');

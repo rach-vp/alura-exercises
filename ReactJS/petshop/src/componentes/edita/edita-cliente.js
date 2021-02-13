@@ -11,9 +11,8 @@ const alerta = (classe, mensagem) => {
 const eventoEdita = (form) => {
   const pegaURL = new URL(window.location);
   const id = pegaURL.searchParams.get("id");
-  const form = document.querySelector("[data-form]");
-  const inputCPF = document.querySelector("[data-cpf]");
-  const inputNome = document.querySelector("[data-nome]");
+  const inputCPF = form.querySelector("[data-cpf]");
+  const inputNome = form.querySelector("[data-nome]");
 
   detalhaCliente(id).then((dados) => {
     inputCPF.value = dados[0].cpf;
@@ -26,12 +25,12 @@ const eventoEdita = (form) => {
       ? window.alert("ESSE CPF NÃO EXISTE")
       : editaCliente(id, inputCPF.value, inputNome.value)
           .then(() =>
-            formEdicao.appendChild(
+            form.appendChild(
               alerta("alert alert-success", "CLIENTE EDITADO COM SUCESSO !")
             )
           )
           .catch(() =>
-            formEdicao.appendChild(
+            form.appendChild(
               alerta("alert alert-warning", "O CLIENTE NÃO PODE SER EDITADO !")
             )
           );
