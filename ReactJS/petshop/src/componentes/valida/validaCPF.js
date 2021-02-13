@@ -50,7 +50,7 @@ function verificaSegundoDigito(cpf){
     return verificaDigito(
         cpf,
         totalDeDigitosSegundaParte,
-        peso, 
+        peso,
         digitoDeVerificacao
     )
 }
@@ -62,3 +62,5 @@ function validaCPF(cpf){
         verificaCPFInvalidos(cpf)
     )
 }
+
+export default validaCPF;
