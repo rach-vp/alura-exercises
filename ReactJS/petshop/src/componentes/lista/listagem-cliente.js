@@ -1,42 +1,15 @@
-import { deletaCliente, listarClientes } from '../../api/cliente.js';
-import inicializaCadastro from '../cadastro/CadastroClientes';
-import '../../assets/css/clientes.css';
-
-const container = document.querySelector('[data-container]');
-
+import { deletaCliente, listarClientes } from "../../api/cliente.js";
+import "../../assets/css/clientes.css";
 
 const removeCliente = (id) => {
-  if(confirm("Deseja deletar o cliente ?")){
-    debugger;
-    deletaCliente(id)
-    window.location.reload()
+  if (confirm("Deseja deletar o cliente ?")) {
+    deletaCliente(id);
+    window.location.reload();
   }
-}
-
-
-const tabela = document.createElement('table');
-const conteudo = `
-<thead class="thead-dark">
-<tr>
-<th scope="col">CPF</th>
-<th scope="col">Nome</th>
-<th scope="col"></th>
-<th scope="col"><a class="btn btn-primary">Novo Cliente</a></th>
-</tr>
-</thead>
-`;
-tabela.innerHTML = conteudo;
-tabela.classList.add('table');
-container.appendChild(tabela);
-
-const corpoTabela = document.createElement('tbody');
-tabela.appendChild(corpoTabela);
-
-const novoCliente = document.querySelector('.btn');
-novoCliente.addEventListener('click', inicializaCadastro);
+};
 
 const exibeCliente = (cpf, nome, id) => {
-  const linha = document.createElement('tr');
+  const linha = document.createElement("tr");
 
   const conteudoLinha = `
   <td>${cpf}</td>
@@ -51,8 +24,35 @@ const exibeCliente = (cpf, nome, id) => {
   return linha;
 };
 
-listarClientes().then( exibe => {
-  exibe.forEach(indice => {
-    corpoTabela.appendChild(exibeCliente(indice.cpf, indice.nome, indice.id))
-  })
-});
+const corpoTabela = () => {
+  const corpoTabela = document.createElement("tbody");
+  listarClientes().then((exibe) =>
+    exibe.forEach(({ cpf, nome, id }) =>
+      corpoTabela.appendChild(exibeCliente(cpf, nome, id))
+    )
+  );
+  return corpoTabela;
+};
+
+const criaTabela = () => {
+  const tabela = document.createElement("table");
+
+  const cabecalho = `
+  <thead class="thead-dark">
+  <tr>
+  <th scope="col">CPF</th>
+  <th scope="col">Nome</th>
+  <th scope="col"></th>
+  <th scope="col">
+    <a class="btn btn-primary" onclick="navegacao('/cadastro'); return false;" >Novo Cliente</a>
+  </th>
+  </tr>
+  </thead>
+  `;
+  tabela.innerHTML = cabecalho;
+  tabela.classList.add("table");
+  tabela.appendChild(corpoTabela());
+  return tabela;
+};
+
+export default criaTabela;

@@ -7,11 +7,13 @@ module.exports = {
     open: true,
     contentBase: 'dist',
   },
-  entry: './componentes/lista/listagem-cliente.js',
+  entry: './main.js',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    sourceMapFilename: '[name].js.map',
   },
+  devtool: 'source-map',
   plugins: [
       new HtmlWebpackPlugin({
         template: './clientes.html',
