@@ -1,5 +1,6 @@
 import validaCPF from "../valida/validaCPF";
 import { editaCliente, detalhaCliente } from "../../api/cliente";
+import navegacao from "../../router";
 
 const alerta = (classe, mensagem) => {
   const linha = document.createElement("section");
@@ -24,11 +25,12 @@ const eventoEdita = (form) => {
     !validaCPF(inputCPF.value)
       ? window.alert("ESSE CPF NÃO EXISTE")
       : editaCliente(id, inputCPF.value, inputNome.value)
-          .then(() =>
+          .then(() => {
+            setTimeout(() => navegacao('/'), 1000);
             form.appendChild(
-              alerta("alert alert-success", "CLIENTE EDITADO COM SUCESSO !")
+              alerta("alert alert-success", "CLIENTE EDITADO COM SUCESSO! AGUARDE REDIRECIONAMENTO")
             )
-          )
+          })
           .catch(() =>
             form.appendChild(
               alerta("alert alert-warning", "O CLIENTE NÃO PODE SER EDITADO !")

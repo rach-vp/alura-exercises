@@ -1,5 +1,6 @@
 import validaCPF from "../valida/validaCPF";
 import { cadastrarClientes } from "../../api/cliente";
+import navegacao from "../../router";
 
 const eventoEnvia = (form) => {
   form.addEventListener("submit", (event) => {
@@ -10,6 +11,7 @@ const eventoEnvia = (form) => {
 
     if (validaCPF(cpf)) {
       cadastrarClientes(nome, cpf);
+      navegacao('/');
     } else {
       alert("O CPF não é válido");
     }
