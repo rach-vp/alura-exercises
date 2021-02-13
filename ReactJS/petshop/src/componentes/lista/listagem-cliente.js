@@ -14,11 +14,16 @@ const exibeCliente = (cpf, nome, id) => {
   const conteudoLinha = `
   <td>${cpf}</td>
   <td>${nome}</td>
-  <button type="button" class="btn btn-danger" onclick="removeCliente(${id})">Excluir</button>
   <button type=""button class="btn btn-info" onclick="navegacao('/edita?id=${id}'); return false;">Editar</button>
   `;
 
+  const botaoExcluir = document.createElement("button");
+  botaoExcluir.className = 'btn btn-danger';
+  botaoExcluir.innerText = 'Excluir';
+  botaoExcluir.addEventListener("click", () => removeCliente(id));
+
   linha.innerHTML = conteudoLinha;
+  linha.appendChild(botaoExcluir);
   return linha;
 };
 
