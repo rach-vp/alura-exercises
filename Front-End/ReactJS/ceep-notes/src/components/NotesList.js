@@ -1,17 +1,11 @@
 import { Component } from 'react';
+import Note from './Note';
 
 class NotesList extends Component {
   render() {
     return (
       <ul>
-        <li>
-          <header>
-            <h3>Title</h3>
-          </header>
-          <article>
-            <p>Write your note...</p>
-          </article>
-        </li>
+        <Note />
       </ul>
     );
   }
