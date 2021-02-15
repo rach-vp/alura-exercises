@@ -1,10 +1,12 @@
-import Input from './components/Input'
-import NotesList from './components/NotesList';
+import FormRegister from "./components/FormRegister/index";
+import NotesList from "./components/NotesList/index";
+import './assets/App.css';
+import './assets/index.css';
 
 function App() {
   return (
-    <main>
-      <Input />
+    <main className="container">
+      <FormRegister />
       <NotesList />
     </main>
   );
