@@ -6,11 +6,10 @@ class Note extends Component {
     return (
       <li className="note">
         <header className="note__header">
-          <h3 className="note__title">Title</h3>
+          <h3 className="note__title">{this.props.note.title}</h3>
         </header>
-        <category is="x3d">{this.props.category}</category>
         <article className="note__article">
-          <p>Write your note...</p>
+          <p>{this.props.note.text}</p>
         </article>
       </li>
     );

@@ -4,11 +4,10 @@ import './style.css';
 
 class NotesList extends Component {
   render() {
-    const categories = ["Work", "Work", "Study"];
     return (
       <ul className="notes">
-        {categories.map((cat, index) => (
-          <Note key={index} category={cat} />
+        {this.props.notes.map((note, index) => (
+          <Note key={index} note={note} />
         ))}
       </ul>
     );
