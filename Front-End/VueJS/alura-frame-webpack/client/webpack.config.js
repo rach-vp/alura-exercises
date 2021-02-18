@@ -2,26 +2,40 @@ const path = require("path");
 const babiliWebpackPlugin = require("babili-webpack-plugin");
 const extractTextWebpackPlugin = require("extract-text-webpack-plugin");
 const optimizeCSSAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
+const webpack = require("webpack");
 
-let plugins = [new extractTextWebpackPlugin("style.css")];
+let plugins = [
+  new extractTextWebpackPlugin("style.css"),
+  new webpack.ProvidePlugin({
+    '$': 'jquery/dist/jquery.js',
+    'jQuery': 'jquery/dist/jquery.js',
+  }),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: "vendor",
+    filename: "vendor.bundle.js",
+  }),
+];
 
 if (process.env.NODE_ENV === "production")
   plugins = [
     ...plugins,
     new babiliWebpackPlugin(),
     new optimizeCSSAssetsWebpackPlugin({
-      cssProcessor: require('cssnano'),
+      cssProcessor: require("cssnano"),
       cssProcessorOptions: {
         discardComments: {
           removeAll: true,
-        }
+        },
       },
       canPrint: true,
     }),
   ];
 
 module.exports = {
-  entry: "./app-src/app.js",
+  entry: {
+    name: "./app-src/app.js",
+    vendor: ["bootstrap", "reflect-metadata"],
+  },
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
