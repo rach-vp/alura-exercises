@@ -5,14 +5,13 @@ import { ApplicationException } from '../../util/ApplicationException.js';
 export class NegociacaoService {
 
     constructor() {
-
         this._http = new HttpService();
     }
 
     obtemNegociacoesDaSemana() {
 
         return this._http
-            .get('http://localhost:3000/negociacoes/semana')
+            .get(`${SERVICE_URL}/negociacoes/semana`)
             .then(
             dados =>
                 dados.map(objeto =>
@@ -28,7 +27,7 @@ export class NegociacaoService {
     obtemNegociacoesDaSemanaAnterior() {
 
         return this._http
-            .get('http://localhost:3000/negociacoes/anterior')
+            .get(`${SERVICE_URL}/negociacoes/anterior`)
             .then(
             dados => dados.map(objeto =>
                 new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))
@@ -43,7 +42,7 @@ export class NegociacaoService {
     obtemNegociacoesDaSemanaRetrasada() {
 
         return this._http
-            .get('http://localhost:3000/negociacoes/retrasada')
+            .get(`${SERVICE_URL}/negociacoes/retrasada`)
             .then(
             dados => dados.map(objeto =>
                 new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))

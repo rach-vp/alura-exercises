@@ -27,7 +27,10 @@ let plugins = [
   }),
 ];
 
-if (process.env.NODE_ENV === "production")
+let SERVICE_URL = JSON.stringify('http://localhost:3000');
+
+if (process.env.NODE_ENV === "production") {
+  // SERVICE_URL = JSON.stringify('endereço-da-api'); só quando tiver subido a API
   plugins = [
     ...plugins,
     new babiliWebpackPlugin(),
@@ -41,6 +44,9 @@ if (process.env.NODE_ENV === "production")
       canPrint: true,
     }),
   ];
+}
+
+plugins = [...plugins, new webpack.DefinePlugin({ SERVICE_URL })];
 
 module.exports = {
   entry: {
