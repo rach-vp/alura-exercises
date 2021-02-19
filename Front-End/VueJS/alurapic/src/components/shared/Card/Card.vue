@@ -1,9 +1,11 @@
 <template>
   <section class="card">
     <h2 class="card__title" @dblclick="visible = !visible">{{ title }}</h2>
-    <div class="card__body" v-show="visible">
-      <img :src="src" :alt="alt" class="card__body--picture">
-    </div>
+    <transition name="card__body--fade">
+      <div class="card__body" v-show="visible">
+        <img :src="src" :alt="alt" class="card__body--picture">
+      </div>
+    </transition>
   </section>
 </template>
 
@@ -29,6 +31,7 @@ export default {
     height: 100%;
     vertical-align: top;
     text-align: center;
+    user-select: none;
   }
 
   .card__title {
@@ -43,4 +46,16 @@ export default {
   .card__body--picture {
     width: 100%;
   }
+
+  .card__body--fade-enter,
+  .card__body--fade-leave-active {
+    opacity: 0;
+  }
+
+  .card__body--fade-leave-active,
+  .card__body--fade-enter-active {
+    transition: opacity 0.5s;
+  }
+
+
 </style>
