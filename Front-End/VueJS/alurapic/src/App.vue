@@ -5,7 +5,7 @@
       type="search"
       class="filter"
       placeholder="Filter by title"
-      v-on:input="filterQuery = new RegExp($event.target.value.trim(), 'i')"
+      @input="filterQuery = new RegExp($event.target.value.trim(), 'i')"
     />
     <ul class="list-pictures">
       <li

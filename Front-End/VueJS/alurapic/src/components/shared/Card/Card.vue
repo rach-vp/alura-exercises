@@ -1,7 +1,7 @@
 <template>
   <section class="card">
-    <h2 class="card__title">{{ title }}</h2>
-    <div class="card__body">
+    <h2 class="card__title" @dblclick="visible = !visible">{{ title }}</h2>
+    <div class="card__body" v-show="visible">
       <img :src="src" :alt="alt" class="card__body--picture">
     </div>
   </section>
@@ -9,7 +9,12 @@
 
 <script>
 export default {
-  props: ['title', 'src', 'alt']
+  props: ['title', 'src', 'alt'],
+  data() {
+    return {
+      visible: true,
+    }
+  }
 }
 </script>
 
