@@ -4,12 +4,15 @@
     <transition name="card__body--fade">
       <div class="card__body" v-show="visible">
         <img :src="src" :alt="alt" class="card__body--picture" />
+        <btn type="danger" label="DELETE" />
       </div>
     </transition>
   </section>
 </template>
 
 <script>
+import Button from "../Button";
+
 export default {
   props: {
     title: {
@@ -24,6 +27,9 @@ export default {
       type: String,
       required: true,
     },
+  },
+  components: {
+    'btn': Button,
   },
   data() {
     return {
