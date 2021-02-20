@@ -1,5 +1,5 @@
 <template>
-  <button @click="confirmAction()" class="button" :class="style">
+  <button @click="confirmAction()" class="button" :class="btnType">
     {{ label }}
   </button>
 </template>
@@ -9,7 +9,6 @@ export default {
   props: {
     type: {
       type: String,
-      required: true,
     },
     label: {
       type: String,
@@ -20,8 +19,12 @@ export default {
       required: true,
     },
   },
-  data() {
-    return { style: `button-${this.type}` };
+  computed: {
+    btnType() {
+      return !this.type || this.type === "default"
+        ? `button-default`
+        : `button-${this.type}`;
+    },
   },
   methods: {
     confirmAction() {
