@@ -4,7 +4,12 @@
     <transition name="card__body--fade">
       <div class="card__body" v-show="visible">
         <img :src="src" :alt="alt" class="card__body--picture" />
-        <btn type="danger" label="DELETE" @actionConfirmed="remove(title)" />
+        <btn
+          type="danger"
+          label="DELETE"
+          :confirmation=true
+          @actionConfirmed="remove(title)"
+        />
       </div>
     </transition>
   </section>
@@ -29,7 +34,7 @@ export default {
     },
   },
   components: {
-    'btn': Button,
+    btn: Button,
   },
   data() {
     return {
@@ -39,8 +44,8 @@ export default {
   methods: {
     remove(title) {
       alert(`Picture ${title} successfully removed.`);
-    }
-  }
+    },
+  },
 };
 </script>
 

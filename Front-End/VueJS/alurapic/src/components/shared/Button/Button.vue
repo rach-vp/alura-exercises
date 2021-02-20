@@ -15,13 +15,19 @@ export default {
       type: String,
       required: true,
     },
+    confirmation: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return { style: `button-${this.type}` };
   },
   methods: {
     confirmAction() {
-      if (confirm("Would you like to proceed?")) this.$emit("actionConfirmed");
+      if (!this.confirmation) this.$emit("actionConfirmed");
+      else if (confirm("Would you like to proceed?"))
+        this.$emit("actionConfirmed");
     },
   },
 };
