@@ -1,14 +1,21 @@
 <template>
   <section class="card">
-    <h2 class="card__title" @dblclick="visible = !visible">{{ title }}</h2>
+    <h2 class="card__title" @dblclick="visible = !visible">
+      {{ picture.titulo }}
+    </h2>
     <transition name="card__body--fade">
       <div class="card__body" v-show="visible">
-        <img v-el-transform :src="src" :alt="alt" class="card__body--picture" />
+        <img
+          v-el-transform
+          :src="picture.url"
+          :alt="picture.titulo"
+          class="card__body--picture"
+        />
         <btn
           type="danger"
           label="DELETE"
           :confirmation="true"
-          @actionConfirmed="remove(title)"
+          @actionConfirmed="remove(picture)"
         />
       </div>
     </transition>
@@ -20,17 +27,15 @@ import Button from "../Button";
 
 export default {
   props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    src: {
-      type: String,
-      required: true,
-    },
-    alt: {
-      type: String,
-      required: true,
+    picture: {
+      titulo: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
     },
   },
   components: {
@@ -42,8 +47,17 @@ export default {
     };
   },
   methods: {
-    remove(title) {
-      alert(`Picture ${title} successfully removed.`);
+    remove(picture) {
+      this.$http
+        .delete(`http://localhost:3000/v1/fotos/${picture._id}`)
+        .then(() => {
+          this.$emit("show-alert", "Picture succesfully deleted");
+          this.$emit("remove-card", picture);
+        })
+        .catch((err) => {
+          this.$emit("show-alert", "Cannot remove picture");
+          console.log(err);
+        });
     },
   },
 };

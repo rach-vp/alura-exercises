@@ -1,6 +1,11 @@
 <template>
   <section class="main-content">
     <h1 class="centered">{{ title }}</h1>
+    <transition name="p-fade" :duration="500">
+      <p v-show="message" class="centered">
+        {{ message }}
+      </p>
+    </transition>
     <input
       type="search"
       class="filter"
@@ -10,10 +15,10 @@
     <ul class="list-pictures">
       <li
         class="list-pictures__item"
-        v-for="{ url, titulo } of filteredCards"
-        :key="titulo"
+        v-for="picture of filteredCards"
+        :key="picture.titulo"
       >
-        <card :title="titulo" :src="url" :alt="titulo" />
+        <card :picture="picture" @remove-card="removeCard" @show-alert="updateMessage" />
       </li>
     </ul>
   </section>
@@ -31,7 +36,18 @@ export default {
       title: "AluraPic",
       pictures: [],
       filterQuery: "",
+      message: "",
     };
+  },
+  methods: {
+    updateMessage(message) {
+      setTimeout(() => (this.message = ""), 3000);
+      this.message = message;
+      console.log(`message: ${this.message}`);
+    },
+    removeCard(picture) {
+      this.pictures.splice(this.pictures.indexOf(picture), 1);
+    }
   },
   computed: {
     filteredCards() {
@@ -59,6 +75,16 @@ export default {
 <style>
 .centered {
   text-align: center;
+}
+
+.p-fade-enter-active,
+.p-fade-leave-active {
+  transition: all 0.3s;
+}
+
+.p-fade-enter,
+.p-fade-leave-active {
+  opacity: 0;
 }
 
 .main-content {
