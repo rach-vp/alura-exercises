@@ -3,11 +3,11 @@
     <h2 class="card__title" @dblclick="visible = !visible">{{ title }}</h2>
     <transition name="card__body--fade">
       <div class="card__body" v-show="visible">
-        <img :src="src" :alt="alt" class="card__body--picture" />
+        <img v-el-transform' :src="src" :alt="alt" class="card__body--picture" />
         <btn
           type="danger"
           label="DELETE"
-          :confirmation=true
+          :confirmation="true"
           @actionConfirmed="remove(title)"
         />
       </div>
@@ -74,6 +74,7 @@ export default {
 
 .card__body--picture {
   width: 100%;
+  transition: transform 0.2s;
 }
 
 .card__body--fade-enter,
