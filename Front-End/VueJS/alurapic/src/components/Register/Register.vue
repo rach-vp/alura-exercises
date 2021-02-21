@@ -26,7 +26,7 @@
 
       <div class="centered">
         <btn label="SAVE" :submit="true" />
-        <router-link to="/"><btn label="BACK" /></router-link>
+        <router-link to="{ name: 'home' }"><btn label="BACK" /></router-link>
       </div>
     </form>
   </div>
