@@ -3,7 +3,7 @@
     <h2 class="card__title" @dblclick="visible = !visible">{{ title }}</h2>
     <transition name="card__body--fade">
       <div class="card__body" v-show="visible">
-        <img v-el-transform' :src="src" :alt="alt" class="card__body--picture" />
+        <img v-el-transform :src="src" :alt="alt" class="card__body--picture" />
         <btn
           type="danger"
           label="DELETE"

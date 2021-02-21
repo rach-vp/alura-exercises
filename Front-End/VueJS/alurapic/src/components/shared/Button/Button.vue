@@ -1,5 +1,5 @@
 <template>
-  <button @click="confirmAction()" class="button" :class="btnType">
+  <button @click="confirmAction()" class="button" :class="btnType" :type="compSubmit">
     {{ label }}
   </button>
 </template>
@@ -14,9 +14,11 @@ export default {
       type: String,
       required: true,
     },
+    submit: {
+      type: Boolean,
+    },
     confirmation: {
       type: Boolean,
-      required: true,
     },
   },
   computed: {
@@ -25,6 +27,10 @@ export default {
         ? `button-default`
         : `button-${this.type}`;
     },
+
+    compSubmit() {
+      return !this.submit ? 'submit' : '';
+    }
   },
   methods: {
     confirmAction() {
