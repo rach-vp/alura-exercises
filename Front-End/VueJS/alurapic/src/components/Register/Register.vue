@@ -35,6 +35,7 @@
 <script>
 import Button from "../shared/Button";
 import Picture from "../../domain/Picture";
+import PictureService from "../../domain/Picture/PictureService";
 
 export default {
   components: {
@@ -47,8 +48,10 @@ export default {
   },
   methods: {
     save() {
-      this.$http
-        .post("http://localhost:3000/v1/fotos", this.picture)
+      this.service = new PictureService(this.$resource);
+
+      this.service
+        .register(this.picture)
         .then(() => (this.picture = new Picture()))
         .catch((err) => alert(err));
     },

@@ -24,6 +24,7 @@
 
 <script>
 import Button from "../Button";
+import PictureService from "../../../domain/Picture/PictureService";
 
 export default {
   props: {
@@ -48,8 +49,10 @@ export default {
   },
   methods: {
     remove(picture) {
-      this.$http
-        .delete(`http://localhost:3000/v1/fotos/${picture._id}`)
+      this.service = new PictureService(this.$resource);
+
+      this.service
+        .delete(picture._id)
         .then(() => {
           this.$emit("show-alert", "Picture succesfully deleted");
           this.$emit("remove-card", picture);

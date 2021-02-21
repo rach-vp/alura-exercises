@@ -26,6 +26,7 @@
 
 <script>
 import Card from "../shared/Card";
+import PictureService from '../../domain/Picture/PictureService';
 
 export default {
   components: {
@@ -61,9 +62,10 @@ export default {
     },
   },
   created() {
-    this.$http
-      .get("http://localhost:3000/v1/fotos")
-      .then((res) => res.json())
+    this.service = new PictureService(this.$resource);
+
+    this.service
+      .create()
       .then(
         (res) => (this.pictures = res),
         (err) => console.log(err)
