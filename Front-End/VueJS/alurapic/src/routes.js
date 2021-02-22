@@ -1,5 +1,6 @@
 import Home from "./components/Home";
-import Register from "./components/Register";
+
+const Register = () => System.import("./components/Register");
 
 const routes = [
   { path: "", name: "home", component: Home, title: "Home", menu: true },
