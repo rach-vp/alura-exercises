@@ -66,10 +66,8 @@ export default {
 
     this.service
       .create()
-      .then(
-        (res) => (this.pictures = res),
-        (err) => console.log(err)
-      );
+      .then(res => this.pictures = res)
+      .catch(err => this.message = err);
   },
 };
 </script>
