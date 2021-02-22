@@ -6,12 +6,18 @@
     <form @submit.prevent="save()">
       <div class="control">
         <label for="title">TITLE</label>
-        <input id="title" autocomplete="off" v-model.lazy="picture.titulo" />
+        <validation-provider rules="required" v-slot="{ errors }">
+          <input id="title" autocomplete="off" v-model.lazy="picture.titulo" />
+          <span>{{ errors[0] }}</span>
+        </validation-provider>
       </div>
 
       <div class="control">
         <label for="url">URL</label>
-        <input id="url" autocomplete="off" v-model.lazy="picture.url" />
+        <validation-provider rules="required" v-slot="{ errors }">
+          <input id="url" autocomplete="off" v-model.lazy="picture.url" />
+          <span>{{ errors[0] }}</span>
+        </validation-provider>
         <img v-show="picture.url" :src="picture.url" :alt="picture.titulo" />
       </div>
 
@@ -53,7 +59,7 @@ export default {
       this.service
         .register(this.picture)
         .then(() => {
-          if (this.id) this.$router.push({ name: 'home' });
+          if (this.id) this.$router.push({ name: "home" });
           this.picture = new Picture();
         })
         .catch((err) => alert(err));
@@ -61,16 +67,14 @@ export default {
   },
   computed: {
     title() {
-      return !this.id ? 'Register' : 'Edition';
-    }
+      return !this.id ? "Register" : "Edition";
+    },
   },
   created() {
     if (this.id) {
-      this.service
-        .search(this.id)
-        .then(picture => this.picture = picture);
+      this.service.search(this.id).then((picture) => (this.picture = picture));
     }
-  }
+  },
 };
 </script>
 
