@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="centered">Register</h1>
+    <h1 class="centered">{{ title }}</h1>
     <h2 class="centered"></h2>
 
     <form @submit.prevent="save()">
@@ -26,7 +26,7 @@
 
       <div class="centered">
         <btn label="SAVE" :submit="true" />
-        <router-link to="{ name: 'home' }"><btn label="BACK" /></router-link>
+        <router-link :to="{ name: 'home' }"><btn label="BACK" /></router-link>
       </div>
     </form>
   </div>
@@ -44,18 +44,33 @@ export default {
   data() {
     return {
       picture: new Picture(),
+      id: this.$route.params.id,
+      service: new PictureService(this.$resource),
     };
   },
   methods: {
     save() {
-      this.service = new PictureService(this.$resource);
-
       this.service
         .register(this.picture)
-        .then(() => (this.picture = new Picture()))
+        .then(() => {
+          if (this.id) this.$router.push({ name: 'home' });
+          this.picture = new Picture();
+        })
         .catch((err) => alert(err));
     },
   },
+  computed: {
+    title() {
+      return !this.id ? 'Register' : 'Edition';
+    }
+  },
+  created() {
+    if (this.id) {
+      this.service
+        .search(this.id)
+        .then(picture => this.picture = picture);
+    }
+  }
 };
 </script>
 

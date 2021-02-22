@@ -10,6 +10,13 @@ const routes = [
     title: "Register",
     menu: true
   },
+  {
+    path: "/register/:id",
+    name: "edit",
+    component: Register,
+    title: "Edition",
+    menu: false
+  },
   { path: "*", component: Home, menu: false }
 ];
 

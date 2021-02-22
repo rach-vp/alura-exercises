@@ -12,6 +12,12 @@ export default class PictureService {
   }
 
   register(picture) {
-    return this._resource.save(picture);
+    return picture._id
+      ? this._resource.update({ id: picture._id }, picture)
+      : this._resource.save(picture);
+  }
+
+  search(id) {
+    return this._resource.get({ id }).then(res => res.json());
   }
 }

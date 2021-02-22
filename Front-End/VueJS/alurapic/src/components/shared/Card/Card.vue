@@ -11,6 +11,9 @@
           :alt="picture.titulo"
           class="card__body--picture"
         />
+        <router-link :to="{ name: 'edit', params: { id: picture._id } }"
+          ><btn label="EDIT" />
+        </router-link>
         <btn
           type="danger"
           label="DELETE"
