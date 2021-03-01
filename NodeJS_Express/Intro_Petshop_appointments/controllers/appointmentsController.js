@@ -1,7 +1,12 @@
-const Appointment = require('../models/appointment');
+const Appointments = require('../models/appointments');
 
 module.exports = app => {
-  app.get('/appointments', (req, res) => Appointment.list(res));
+  app.get('/appointments', (req, res) => {
+    Appointments.list()
+      .then(result => res.status(200).json(result))
+      .catch(err => res.status(400).json(err));
+  });
+
   app.get('/appointments/:id', (req, res) => {
     const id = parseInt(req.params.id);
     Appointment.queryID(id, res);
@@ -9,19 +14,20 @@ module.exports = app => {
 
   app.post('/appointments', (req, res) => {
     const appointment = req.body;
-    Appointment.add(appointment, res);
-    res.send('POST appointment');
+    Appointments.add(appointment, res)
+      .then((appointmentCreated) => res.status(201).json(appointmentCreated))
+      .catch(err => res.status(400).json(err));
   });
 
   app.patch('/appointments/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const values = req.body;
-    Appointment.update(id, values, res);
+    Appointments.update(id, values, res);
   });
 
   app.delete('/appointments/:id', (req, res) => {
     const id = parseInt(req.params.id);
 
-    Appointment.delete(id, res);
+    Appointments.delete(id, res);
   });
 }
