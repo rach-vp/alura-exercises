@@ -6,5 +6,12 @@ module.exports ={
   },
   insert(provider) {
     return Modelo.create(provider);
+  },
+  async getProviderById(id) {
+    const match = await Model.findOne({
+      where: { id }
+    });
+    if (!match) throw new Error('Provider not found');
+    return match;
   }
 }
