@@ -34,6 +34,25 @@ class Provider {
     this.dateUpdate = result.dateUpdate;
     this.version = result.version;
   }
+
+  async update() {
+    await ProvidersTable.getProviderById(this.id);
+    const updatableFields = ['provider', 'email', 'category'];
+    const updatableData = {};
+
+    updatableFields.forEach(field => {
+      const value = this[field];
+      if (typeof value === 'string' && value !== '') {
+        updatableData[field] = value;
+      }
+    });
+
+    if (!Object.keys(updatableData).length) {
+      throw new Error('No updatable data provided.');
+    }
+
+    await ProvidersTable.update(this.id, updatableData);
+  }
 }
 
 module.exports = Provider;

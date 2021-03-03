@@ -29,6 +29,18 @@ router.get('/:id', async (req, res) => {
   } catch ({ message }) {
     res.status(400).send(JSON.stringify({ message }));
   }
-})
+});
+
+router.put('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const provider = new Provider({ ...id, data });
+    await provider.update();
+    res.status(200).end();
+  } catch ({ message }) {
+    res.status(400).send(JSON.stringify({ message }));
+  }
+});
 
 module.exports = router;

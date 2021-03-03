@@ -13,5 +13,10 @@ module.exports ={
     });
     if (!match) throw new Error('Provider not found');
     return match;
+  },
+  async update(id, updatableData) {
+    return Model.update(updatableData, {
+      where: { id },
+    })
   }
 }
