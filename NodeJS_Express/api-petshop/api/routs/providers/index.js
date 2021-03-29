@@ -2,7 +2,7 @@ const router = require('express').Router();
 const ProvidersTable = require('./ProvidersTable');
 const Provider = require('./Provider');
 
-//List all providers
+// List all providers
 router.get('/', async (req, res) => {
   const result = await ProvidersTable.list();
   res.send(
@@ -31,6 +31,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Update provider info
 router.put('/:id', async (req, res) => {
   try {
     const id = req.params.id;
@@ -40,6 +41,19 @@ router.put('/:id', async (req, res) => {
     res.status(200).end();
   } catch ({ message }) {
     res.status(400).send(JSON.stringify({ message }));
+  }
+});
+
+// Delete provider
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id;
+  const provider = new Provider({ id });
+  try {
+    await provider.getProvider();
+    await provider.delete();
+    res.end();
+  } catch ({ message }) {
+    res,status(400).send(JSON.stringify({ message }));
   }
 });
 

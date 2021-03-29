@@ -18,5 +18,10 @@ module.exports ={
     return Model.update(updatableData, {
       where: { id },
     })
+  },
+  async delete(id) {
+    return Model.destroy({
+      where: { id },
+    });
   }
 }

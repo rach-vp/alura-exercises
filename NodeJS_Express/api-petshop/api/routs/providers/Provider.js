@@ -53,6 +53,10 @@ class Provider {
 
     await ProvidersTable.update(this.id, updatableData);
   }
+
+  async delete() {
+    return ProvidersTable.delete(this.id);
+  }
 }
 
 module.exports = Provider;
