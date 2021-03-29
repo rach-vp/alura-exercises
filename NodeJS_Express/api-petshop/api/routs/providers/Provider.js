@@ -12,6 +12,7 @@ class Provider {
   }
 
   async create() {
+    this.validate();
     const result = await ProvidersTable.insert({
       provider: this.provider,
       email: this.email,
@@ -56,6 +57,16 @@ class Provider {
 
   async delete() {
     return ProvidersTable.delete(this.id);
+  }
+
+  async validate() {
+    const fields = ['provider', 'email', 'category'];
+    fields.forEach(field => {
+      const value = this[field];
+      if (typeof value !== 'string' || !value.length) {
+        throw new Error(`Field ${field} is invalid`);
+      }
+    });
   }
 }
 

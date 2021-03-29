@@ -5,17 +5,21 @@ const Provider = require('./Provider');
 // List all providers
 router.get('/', async (req, res) => {
   const result = await ProvidersTable.list();
-  res.send(
+  res.status(200).send(
     JSON.stringify(result)
   )
 });
 
 // Create new provider
 router.post('/', async (req, res) => {
-  const receivedData = req.body;
-  const provider = new Provider(receivedData);
-  await provider.create();
-  res.send(JSON.stringify(provider));
+  try {
+    const receivedData = req.body;
+    const provider = new Provider(receivedData);
+    await provider.create();
+    res.status(201).send(JSON.stringify(provider));
+  } catch ({ message }) {
+    res.status(400).send(JSON.stringify({ message }))
+  }
 });
 
 // List provider by id
@@ -27,7 +31,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).send(JSON.stringify(provider));
 
   } catch ({ message }) {
-    res.status(400).send(JSON.stringify({ message }));
+    res.status(404).send(JSON.stringify({ message }));
   }
 });
 
@@ -38,7 +42,7 @@ router.put('/:id', async (req, res) => {
     const data = req.body;
     const provider = new Provider({ ...id, data });
     await provider.update();
-    res.status(200).end();
+    res.status(204).end();
   } catch ({ message }) {
     res.status(400).send(JSON.stringify({ message }));
   }
@@ -51,9 +55,9 @@ router.delete('/:id', async (req, res) => {
   try {
     await provider.getProvider();
     await provider.delete();
-    res.end();
+    res.status(204).end();
   } catch ({ message }) {
-    res,status(400).send(JSON.stringify({ message }));
+    res,status(404).send(JSON.stringify({ message }));
   }
 });
 
