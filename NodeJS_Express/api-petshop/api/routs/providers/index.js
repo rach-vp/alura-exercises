@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const ProvidersTable = require('./ProvidersTable');
 const Provider = require('./Provider');
-const NotFound = require('../../error/NotFound');
 
 // List all providers
 router.get('/', async (req, res) => {
@@ -12,27 +11,27 @@ router.get('/', async (req, res) => {
 });
 
 // Create new provider
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const receivedData = req.body;
     const provider = new Provider(receivedData);
     await provider.create();
     res.status(201).send(JSON.stringify(provider));
-  } catch ({ message }) {
-    res.status(400).send(JSON.stringify({ message }))
+  } catch (error) {
+    next(error);
   }
 });
 
 // List provider by id
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const provider = new Provider({ id });
     await provider.getProvider();
     res.status(200).send(JSON.stringify(provider));
 
-  } catch ({ message }) {
-    res.status(404).send(JSON.stringify({ message }));
+  } catch (error) {
+    next(error);
   }
 });
 

@@ -1,4 +1,6 @@
 const ProvidersTable = require('./ProvidersTable');
+const InvalidField = require('../../error/InvalidField');
+const NoUpdatableData = require('../../error/NoUpdatableData');
 
 class Provider {
   constructor({ id, provider, email, category, dateCreation, dateUpdate, version }) {
@@ -49,7 +51,7 @@ class Provider {
     });
 
     if (!Object.keys(updatableData).length) {
-      throw new Error('No updatable data provided.');
+      throw new NoUpdatableData();
     }
 
     await ProvidersTable.update(this.id, updatableData);
@@ -64,7 +66,7 @@ class Provider {
     fields.forEach(field => {
       const value = this[field];
       if (typeof value !== 'string' || !value.length) {
-        throw new Error(`Field ${field} is invalid`);
+        throw new InvalidField(field);
       }
     });
   }
