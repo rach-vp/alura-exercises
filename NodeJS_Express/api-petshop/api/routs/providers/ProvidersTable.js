@@ -1,4 +1,5 @@
 const Model = require('./ProvidersTableModel');
+const NotFound = require('../../error/NotFound');
 
 module.exports ={
   list() {
@@ -11,7 +12,7 @@ module.exports ={
     const match = await Model.findOne({
       where: { id }
     });
-    if (!match) throw new Error('Provider not found');
+    if (!match) throw new NotFound();
     return match;
   },
   async update(id, updatableData) {

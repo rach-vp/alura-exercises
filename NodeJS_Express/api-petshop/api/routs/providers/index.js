@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const ProvidersTable = require('./ProvidersTable');
 const Provider = require('./Provider');
+const NotFound = require('../../error/NotFound');
 
 // List all providers
 router.get('/', async (req, res) => {
@@ -36,15 +37,15 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update provider info
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const data = req.body;
     const provider = new Provider({ ...id, data });
     await provider.update();
     res.status(204).end();
-  } catch ({ message }) {
-    res.status(400).send(JSON.stringify({ message }));
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -56,8 +57,8 @@ router.delete('/:id', async (req, res) => {
     await provider.getProvider();
     await provider.delete();
     res.status(204).end();
-  } catch ({ message }) {
-    res,status(404).send(JSON.stringify({ message }));
+  } catch (error) {
+    next(error);
   }
 });
 
