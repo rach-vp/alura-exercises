@@ -6,9 +6,20 @@ const NotFound = require('./error/NotFound');
 const InvalidField = require('./error/InvalidField');
 const NoUpdatableData = require('./error/NoUpdatableData');
 const ContentNotSupported = require('./error/ContentNotSupported');
+const acceptedFormats = require('./Serializer');
 
 const app = express();
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  const requestedFormat = req.header('Accept') === '*/*'
+    ? 'application/json'
+    : req.header('Accept');
+  if (!acceptedFormats.includes(requestedFormat)) {
+    return res.status(406).end();
+  }
+  res.setHeader('Content-Type', requestedFormat);
+  next();
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/providers', router);

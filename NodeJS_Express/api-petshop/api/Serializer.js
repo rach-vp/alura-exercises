@@ -13,4 +13,7 @@ class Serializer {
   }
 }
 
-module.exports = Serializer;
+module.exports = {
+  Serializer,
+  acceptedFormats: ['application/json'],
+};
