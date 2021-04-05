@@ -3,7 +3,7 @@ const NotFound = require('../../error/NotFound');
 
 module.exports ={
   list() {
-    return Model.findAll();
+    return Model.findAll({ raw: true });
   },
   insert(provider) {
     return Modelo.create(provider);
