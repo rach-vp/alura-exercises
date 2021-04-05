@@ -13,7 +13,15 @@ class Serializer {
   }
 }
 
+class ProvidersSerializer extends Serializer {
+  constructor(contentType) {
+    super();
+    this.contentType = contentType;
+  }
+}
+
 module.exports = {
   Serializer,
+  ProvidersSerializer,
   acceptedFormats: ['application/json'],
 };
