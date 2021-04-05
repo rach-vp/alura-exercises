@@ -1,8 +1,15 @@
 const ContentNotSupported = require('./error/ContentNotSupported');
+const jsonToXML = require('jsontoxml');
 
 class Serializer {
   json(data) {
     return JSON.stringify(data);
+  }
+
+  xml(data) {
+    return  Array.isArray(data)
+      ? jsonToXML({ [`${this.tag}s`]: data.map((provider) => ({ provider })) })
+      : jsonToXML({ [this.tag]: data });
   }
 
   filterData(data) {
@@ -20,6 +27,9 @@ class Serializer {
     if (this.contentType === 'application/json') {
       return this.json(filteredData);
     }
+    if (this.contentType === 'application/xml') {
+      return this.xml(filteredData);s
+    }
     throw new ContentNotSupported(this.contentType);
   }
 }
@@ -29,6 +39,7 @@ class ProvidersSerializer extends Serializer {
     super();
     this.contentType = contentType;
     this.publicFields = ['id', 'provider', 'category'].concat(extraFields || []);
+    this.tag = 'provider';
   }
 }
 
@@ -37,6 +48,7 @@ class ErrorSerializer extends Serializer {
     super();
     this.contentType = contentType;
     this.publicFields = ['id', 'message'].concat(extraFields || []);
+    this.tag = 'error';
   }
 }
 
@@ -44,5 +56,5 @@ module.exports = {
   Serializer,
   ProvidersSerializer,
   ErrorSerializer,
-  acceptedFormats: ['application/json'],
+  acceptedFormats: ['application/json', 'application/xml'],
 };
