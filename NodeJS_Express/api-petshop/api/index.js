@@ -6,7 +6,8 @@ const NotFound = require('./error/NotFound');
 const InvalidField = require('./error/InvalidField');
 const NoUpdatableData = require('./error/NoUpdatableData');
 const ContentNotSupported = require('./error/ContentNotSupported');
-const acceptedFormats = require('./Serializer');
+const { acceptedFormats } = require('./Serializer');
+const { ErrorSerializer } = require('./Serializer');
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,7 +44,8 @@ app.use((error, req, res, next) => {
       status = 500;
       break;
   }
-  res.status(status).send(JSON.stringify({ idError, message }));
+  const serializer = new ErrorSerializer(res.getHeader('Content-Type'));
+  res.status(status).send(serializer.serialize({ id: idError, message }));
 });
 
 const port = process.env.PORT || config.get('api.port');
