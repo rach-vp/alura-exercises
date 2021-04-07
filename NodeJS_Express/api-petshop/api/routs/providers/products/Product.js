@@ -63,9 +63,18 @@ class Product {
     Object.entries(updatableData).forEach(([key, value]) => { if (!value) delete updatableData[key] });
 
     if (!Object.keys(updatableData).length) throw new Error('No updatable data provided');
-    return ProductTable.update(
+    return await ProductTable.update(
       { id: this.id, provider: this.provider },
       updatableData,
+    );
+  }
+
+  async decreaseStock(amount) {
+    this.stock = this.stock - amount;
+    return await ProductTable.decreaseStock(
+      this.id,
+      this.provider,
+      this.stock,
     );
   }
 }

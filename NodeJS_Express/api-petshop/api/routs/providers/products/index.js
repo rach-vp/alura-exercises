@@ -72,4 +72,20 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
+// Decrease stock of product
+router.post('/:id/decrease-stock', async (req, res, next) => {
+  try {
+    const data = {
+      id: req.params.id,
+      provider: req.provider.id,
+    };
+    const product = new Product(data);
+    await product.getProduct();
+    product.decreaseStock(req.body.amount);
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
