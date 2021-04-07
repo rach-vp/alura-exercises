@@ -5,7 +5,8 @@ module.exports = {
     return Model.findAll({
       where: {
         provider: providerId,
-      }
+      },
+      raw: true,
     });
   },
   create(productData) {
