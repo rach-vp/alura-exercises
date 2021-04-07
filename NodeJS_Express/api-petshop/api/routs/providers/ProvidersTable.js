@@ -6,7 +6,7 @@ module.exports ={
     return Model.findAll({ raw: true });
   },
   insert(provider) {
-    return Modelo.create(provider);
+    return Model.create(provider);
   },
   async getProviderById(id) {
     const match = await Model.findOne({
