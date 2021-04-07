@@ -9,13 +9,17 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new product
-router.post('/', async (req, res) => {
-  const body = req.body;
-  const provider = req.params.providerId;
-  const data = { ...body, provider };
-  const product = new Product(data);
-  await product.create();
-  res.status(201).send(product);
+router.post('/', async (req, res, next) => {
+  try {
+    const body = req.body;
+    const provider = req.params.providerId;
+    const data = { ...body, provider };
+    const product = new Product(data);
+    await product.create();
+    res.status(201).send(product);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Delete product

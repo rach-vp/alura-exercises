@@ -13,7 +13,18 @@ class Product {
       this.version = version;
   }
 
+  validate() {
+    if (typeof this.title !== 'string' || !this.title.length) {
+      throw new Error('Field title is invalid');
+    }
+    if (typeof this.price !== 'number' || !this.price) {
+      throw new Error('Field price is invalid');
+    }
+  }
+
   async create() {
+    this.validate();
+
     const result = await Table.create({
       title: this.title,
       price: this.price,
