@@ -1,5 +1,6 @@
 const Model = require('./ProductTableModel');
 const instance = require('../../../database');
+const NotFound =require('../../../error/NotFound');
 
 module.exports = {
   list(providerId) {
@@ -29,7 +30,7 @@ module.exports = {
       },
       raw: true,
     });
-    if (!productFound) throw new Error('Product not found');
+    if (!productFound) throw new NotFound('Product');
     return productFound;
   },
   async update(productData, dataToUpdate) {

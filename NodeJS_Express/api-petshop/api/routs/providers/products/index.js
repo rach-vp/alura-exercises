@@ -60,6 +60,22 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+router.head('/:id', async (req, res, next) => {
+  try {
+    const data = {
+      id: req.params.id,
+      provider: req.provider.id,
+    };
+    const product = new Product(data);
+    await product.getProduct();
+    res.set('ETag', product.version);
+    res.set('Last-Modified', new Date(product.dateUpdate).getTime());
+    res.status(200).end();
+  } catch(error) {
+    next(error);
+  }
+});
+
 // Update product info
 router.put('/:id', async (req, res, next) => {
   try {

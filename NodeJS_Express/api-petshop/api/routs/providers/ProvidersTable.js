@@ -12,7 +12,7 @@ module.exports ={
     const match = await Model.findOne({
       where: { id }
     });
-    if (!match) throw new NotFound();
+    if (!match) throw new NotFound('Provider');
     return match;
   },
   async update(id, updatableData) {

@@ -1,4 +1,6 @@
 const ProductTable = require('./ProductTable');
+const InvalidField = require('../../../error/InvalidField');
+const NoUpdatableData = require('../../../error/NoUpdatableData');
 
 class Product {
   constructor({ id, title, price, stock, provider,
@@ -15,10 +17,10 @@ class Product {
 
   validate() {
     if (typeof this.title !== 'string' || !this.title.length) {
-      throw new Error('Field title is invalid');
+      throw new InvalidField('title');
     }
     if (typeof this.price !== 'number' || !this.price) {
-      throw new Error('Field price is invalid');
+      throw new InvalidField('price');
     }
   }
 
@@ -62,7 +64,7 @@ class Product {
 
     Object.entries(updatableData).forEach(([key, value]) => { if (!value) delete updatableData[key] });
 
-    if (!Object.keys(updatableData).length) throw new Error('No updatable data provided');
+    if (!Object.keys(updatableData).length) throw new NoUpdatableData();
     return await ProductTable.update(
       { id: this.id, provider: this.provider },
       updatableData,
