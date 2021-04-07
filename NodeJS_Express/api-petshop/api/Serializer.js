@@ -8,7 +8,7 @@ class Serializer {
 
   xml(data) {
     return  Array.isArray(data)
-      ? jsonToXML({ [`${this.tag}s`]: data.map((provider) => ({ provider })) })
+      ? jsonToXML({ [`${this.tag}s`]: data.map((item) => ({ [this.tag]: item })) })
       : jsonToXML({ [this.tag]: data });
   }
 
@@ -43,6 +43,15 @@ class ProvidersSerializer extends Serializer {
   }
 }
 
+class ProductsSerializer extends Serializer {
+  constructor(contentType, extraFields) {
+    super();
+    this.contentType = contentType;
+    this.publicFields = ['id', 'title'].concat(extraFields || []);
+    this.tag = 'product';
+  }
+}
+
 class ErrorSerializer extends Serializer {
   constructor(contentType, extraFields) {
     super();
@@ -55,6 +64,7 @@ class ErrorSerializer extends Serializer {
 module.exports = {
   Serializer,
   ProvidersSerializer,
+  ProductsSerializer,
   ErrorSerializer,
   acceptedFormats: ['application/json', 'application/xml'],
 };

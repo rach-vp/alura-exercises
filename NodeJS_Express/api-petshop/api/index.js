@@ -10,7 +10,11 @@ const { acceptedFormats } = require('./Serializer');
 const { ErrorSerializer } = require('./Serializer');
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use('/api/providers', router);
+
 app.use((req, res, next) => {
   const requestedFormat = req.header('Accept') === '*/*'
     ? 'application/json'
@@ -21,9 +25,10 @@ app.use((req, res, next) => {
   res.setHeader('Content-Type', requestedFormat);
   next();
 });
-app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/providers', router);
+app.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', '*');
+});
 
 // Custom error handler
 app.use((error, req, res, next) => {

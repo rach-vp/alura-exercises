@@ -3,6 +3,18 @@ const ProvidersTable = require('./ProvidersTable');
 const Provider = require('./Provider');
 const { ProvidersSerializer } = require('../../Serializer');
 
+router.options('/', (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'GET, POST');
+  res.set('Access-Control-Allow-Headers', 'Content-type');
+  res.status(204).end();
+});
+
+router.options('/:id', (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'GET, PUT, DELETE');
+  res.set('Access-Control-Allow-Headers', 'Content-type');
+  res.status(204).end();
+});
+
 // List all providers
 router.get('/', async (req, res) => {
   const result = await ProvidersTable.list();
@@ -70,5 +82,21 @@ router.delete('/:id', async (req, res) => {
     next(error);
   }
 });
+
+const productsRouter = require('./products');
+
+const validateProvider = async (req, res, next) => {
+  try {
+    const id = req.params.providerId;
+    const provider = new Provider({ id });
+    await provider.getProvider();
+    req.provider = provider;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+router.use('/:providerId/products', validateProvider, productsRouter);
 
 module.exports = router;
