@@ -4,7 +4,7 @@ const Product = require('./Product');
 
 // List all products from a provider
 router.get('/', async (req, res) => {
-  const products = await Table.list(req.params.providerId);
+  const products = await Table.list(req.provider.id);
   res.send(JSON.stringify(products));
 });
 
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res, next) => {
   try {
     const body = req.body;
-    const provider = req.params.providerId;
+    const provider = req.provider.id;
     const data = { ...body, provider };
     const product = new Product(data);
     await product.create();
@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
 router.delete('/:id', async (req, res) => {
   const data = {
     id: req.params.id,
-    provider: req.params.providerId,
+    provider: req.provider.id,
   };
   const product = new Product(data);
   await product.delete();
