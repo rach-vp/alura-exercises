@@ -18,4 +18,15 @@ router.post('/', async (req, res) => {
   res.status(201).send(product);
 });
 
+// Delete product
+router.delete('/:id', async (req, res) => {
+  const data = {
+    id: req.params.id,
+    provider: req.params.providerId,
+  };
+  const product = new Product(data);
+  await product.delete();
+  res.status(204).end();
+});
+
 module.exports = router;

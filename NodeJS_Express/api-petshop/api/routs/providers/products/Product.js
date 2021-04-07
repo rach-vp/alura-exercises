@@ -26,6 +26,10 @@ class Product {
     this.dateUpdate = result.dateUpdate;
     this.version = result.version;
   }
+
+  async delete() {
+    return await Table.delete(this.id, this.provider);
+  }
 }
 
 module.exports = Product;
