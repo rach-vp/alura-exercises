@@ -30,5 +30,11 @@ module.exports = {
     });
     if (!productFound) throw new Error('Product not found');
     return productFound;
+  },
+  async update(productData, dataToUpdate) {
+    return await Model.update(
+      dataToUpdate,
+      { where: productData },
+    );
   }
 };

@@ -52,6 +52,22 @@ class Product {
     this.dateUpdate = product.dateUpdate;
     this.version = product.version;
   }
+
+  async update() {
+    const updatableData = {};
+
+    updatableData.title = typeof this.title === 'string' && this.title.length ? this.title : null;
+    updatableData.price = typeof this.price === 'number' && this.price ? this.price : null;
+    updatableData.stock = typeof this.stock === 'number' ? this.stock : null;
+
+    Object.entries(updatableData).forEach(([key, value]) => { if (!value) delete updatableData[key] });
+
+    if (!Object.keys(updatableData).length) throw new Error('No updatable data provided');
+    return ProductTable.update(
+      { id: this.id, provider: this.provider },
+      updatableData,
+    );
+  }
 }
 
 module.exports = Product;

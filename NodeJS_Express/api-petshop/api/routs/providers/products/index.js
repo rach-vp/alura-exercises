@@ -55,4 +55,21 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// Update product info
+router.put('/:id', async (req, res, next) => {
+  try {
+    const data = {
+      id: req.params.id,
+      provider: req.provider.id,
+    };
+    const dataToUpdate = req.body;
+    const dataUpdated = { ...data, ...dataToUpdate };
+    const product = new Product(dataUpdated);
+    await product.update();
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
