@@ -19,4 +19,15 @@ module.exports = {
       },
     })
   },
+  async getProductById(productId, providerId) {
+    const productFound = await Model.findOne({
+      where: {
+        id: productId,
+        provider: providerId,
+      },
+      raw: true,
+    });
+    if (!productFound) throw new Error('Product not found');
+    return productFound;
+  }
 };
