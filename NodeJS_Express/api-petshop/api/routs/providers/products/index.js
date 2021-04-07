@@ -3,6 +3,24 @@ const Table = require('./ProductTable');
 const Product = require('./Product');
 const { ProductsSerializer } = require('../../../Serializer');
 
+router.options('/', (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'GET, POST');
+  res.set('Access-Control-Allow-Headers', 'Content-type');
+  res.status(204).end();
+});
+
+router.options('/:id', (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'GET, DELETE, PUT, HEAD');
+  res.set('Access-Control-Allow-Headers', 'Content-type');
+  res.status(204).end();
+});
+
+router.options('/:id/decrease-stock', (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'POST');
+  res.set('Access-Control-Allow-Headers', 'Content-type');
+  res.status(204).end();
+});
+
 // List all products from a provider
 router.get('/', async (req, res) => {
   const products = await Table.list(req.provider.id);
