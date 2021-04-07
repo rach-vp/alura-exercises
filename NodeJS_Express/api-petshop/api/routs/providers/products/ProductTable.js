@@ -1,11 +1,14 @@
 const Model = require('./ProductTableModel');
 
 module.exports = {
-  list(idProvider) {
+  list(providerId) {
     return Model.findAll({
       where: {
-        provider: idProvider,
+        provider: providerId,
       }
     });
-  }
+  },
+  create(productData) {
+    return Model.create(productData);
+  },
 };
