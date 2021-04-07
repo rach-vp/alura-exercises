@@ -19,6 +19,9 @@ router.post('/', async (req, res, next) => {
     const product = new Product(data);
     await product.create();
     const serializer = new ProductsSerializer(res.getHeader('Content-Type'));
+    res.set('ETag', product.version);
+    res.set('Last-Modified', new Date(product.dateUpdate).getTime());
+    res.set('Location', `/api/providers/${provider}/products/${product.id}`);
     res.status(201).send(serializer.serialize(product));
   } catch (error) {
     next(error);
@@ -49,6 +52,8 @@ router.get('/:id', async (req, res, next) => {
       res.getHeader('Content-Type'),
       ['price', 'stock', 'provider', 'dateCreation', 'dateUpdate', 'version'],
     );
+    res.set('ETag', product.version);
+    res.set('Last-Modified', new Date(product.dateUpdate).getTime());
     res.status(201).send(serializer.serialize(product));
   } catch(error) {
     next(error);
@@ -66,6 +71,9 @@ router.put('/:id', async (req, res, next) => {
     const dataUpdated = { ...data, ...dataToUpdate };
     const product = new Product(dataUpdated);
     await product.update();
+    await product.getProduct();
+    res.set('ETag', product.version);
+    res.set('Last-Modified', new Date(product.dateUpdate).getTime());
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -82,6 +90,9 @@ router.post('/:id/decrease-stock', async (req, res, next) => {
     const product = new Product(data);
     await product.getProduct();
     product.decreaseStock(req.body.amount);
+    await product.getProduct();
+    res.set('ETag', product.version);
+    res.set('Last-Modified', new Date(product.dateUpdate).getTime());
     res.status(204).end();
   } catch (error) {
     next(error);
