@@ -9,6 +9,18 @@ class PeopleController {
       return res.status(500).json(err.message);
     }
   }
+
+  static async getPerson(req, res) {
+    try {
+      const { id } = req.params;
+      const person = await database.People.findOne({
+        where: { id: Number(id) },
+      });
+      return res.status(201).json(person);
+    } catch (err) {
+      return res.status(404).json(err.message);
+    }
+  }
 }
 
 module.exports = PeopleController;
