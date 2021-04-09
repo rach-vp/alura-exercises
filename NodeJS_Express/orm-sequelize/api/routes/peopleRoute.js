@@ -12,6 +12,18 @@ router
   .get(
     '/people/:studentId/registrations/:registrationId',
     PeopleController.getRegistration,
+  )
+  .post(
+    '/people/:studentId/registrations',
+    PeopleController.createRegistration,
+  )
+  .put(
+    '/people/:studentId/registrations/:registrationId',
+    PeopleController.updateRegistration,
+  )
+  .delete(
+    '/people/:studentId/registrations/:registrationId',
+    PeopleController.deleteRegistration,
   );
 
 module.exports = router;

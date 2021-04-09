@@ -75,6 +75,57 @@ class PeopleController {
       return res.status(404).json(err.message);
     }
   }
+
+  static async createRegistration(req, res) {
+    try {
+      const studentId = req.params;
+      const registrationData = { ...req.body, studentId: Number(studentId)};
+      const registrationCreated = await database.Registrations.create(registrationData);
+      return res.status(200).json(registrationCreated);
+    } catch (err) {
+      return res.status(500).json(err.message);
+    }
+  }
+
+  static async updateRegistration(req, res) {
+    try {
+      const { studentId, registrationId } = req.params;
+      const info = req.body;
+      await database.People.update(
+        info,
+        {
+          where: {
+            id: Number(registrationId),
+            student_id: Number(studentId),
+          },
+        },
+      );
+      const updatedRegistration = await database.Registrations.findOne({
+        where: {
+          id: Number(registrationId),
+          student_id: Number(studentId),
+        },
+      });
+      res.status(200).json(updatedRegistration);
+    } catch (err) {
+      return res.status(500).json(err.message);
+    }
+  }
+
+  static async deleteRegistration(req, res) {
+    try {
+      const { studentId, registrationId } = req.params;
+      await database.People.destroy({
+        where: {
+          id: Number(registrationId),
+          student_id: Number(studentId),
+        },
+      });
+      res.status(200).json({ message: `id ${id} successfully deleted` });
+    } catch (err) {
+      res.status(404).json(err.message);
+    }
+  }
 }
 
 module.exports = PeopleController;
