@@ -5,7 +5,7 @@ const { InvalidArgumentError, InternalServerError } = require('../erros');
 const criaTokenJWT = ({ id }) => {
   const payload = { id };
 
-  const token = jwt.sign(payload, 'senha-secreta');
+  const token = jwt.sign(payload, process.env.CHAVE_JWT);
   return token;
 };
 
