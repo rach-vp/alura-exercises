@@ -18,8 +18,8 @@ module.exports = app => {
 
   app
     .route('/usuario/logout')
-    .get(
-      middlewaresAuth.bearer,
+    .post(
+      [middlewaresAuth.refresh, middlewaresAuth.bearer],
       usuariosControlador.logout,
     );
 
