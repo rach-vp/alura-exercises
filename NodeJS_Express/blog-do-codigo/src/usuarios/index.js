@@ -3,4 +3,5 @@ module.exports = {
   controlador: require('./usuarios-controlador'),
   modelo: require('./usuarios-modelo'),
   estrategiasAuthent: require('./estrategias-auth'),
+  middlewaresAuth: require('./middlewares-auth'),
 };

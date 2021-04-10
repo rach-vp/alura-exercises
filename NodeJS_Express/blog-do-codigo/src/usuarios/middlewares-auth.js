@@ -21,4 +21,24 @@ module.exports = {
       }
     )(req, res, next);
   },
+  bearer: (req, res, next) => {
+    passport.authenticate(
+      'bearer',
+      { session: false },
+      (error, usuario, info) => {
+        if (error) {
+          if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ erro: error.message });
+          }
+          return res.status(500).json({ erro: error.message });
+        }
+        if (!usuario) {
+          return res.status(401).json();
+        }
+
+        req.user = usuario;
+        return next();
+      },
+    )(req, res, next);
+  }
 };
