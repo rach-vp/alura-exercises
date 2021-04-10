@@ -97,5 +97,16 @@ module.exports = {
         }
       );
     });
-  }
+  },
+
+  modificaEmailVerificado: async (usuario, emailVerificado) => {
+    try {
+      await db.run(
+        `UPDATE usuarios SET emailVerificado = ? WHERE id = ?`,
+        [emailVerificado, usuario.id]
+      )
+    } catch (err) {
+      throw new InternalServerError('Erro ao modificar status de verificação de e-mail');
+    }
+  },
 };

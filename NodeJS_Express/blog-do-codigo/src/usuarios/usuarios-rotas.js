@@ -28,6 +28,13 @@ module.exports = app => {
     .post(usuariosControlador.adiciona)
     .get(usuariosControlador.lista);
 
+  app
+    .route('/usuario/verifica_email/:id')
+    .get(
+      middlewaresAuth.verificacaoEmail,
+      usuariosControlador.verificaEmail,
+    );
+
   app.route('/usuario/:id').delete(
     middlewaresAuth.bearer,
     usuariosControlador.deleta,

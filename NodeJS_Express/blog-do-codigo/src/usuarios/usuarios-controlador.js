@@ -42,6 +42,16 @@ module.exports = {
     res.json(usuarios);
   },
 
+  verificaEmail: async (req, res) => {
+    try {
+      const usuario = req.user;
+      await usuario.verificaEmail();
+      res.status(204).json();
+    } catch (err) {
+      res.status(500).json({ erro: err.message });
+    }
+  },
+
   deleta: async (req, res) => {
     const usuario = await Usuario.buscaPorId(req.params.id);
     try {
