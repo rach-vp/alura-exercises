@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const moment = require('moment');
 const Usuario = require('./usuarios-modelo');
 const { InvalidArgumentError, InternalServerError } = require('../erros');
-const blacklist = require('../../redis/manipula-blacklist');
+const blocklist = require('../../redis/blocklist-access-token');
 const allowListRefreshToken = require('../../redis/allowlist-refresh-token');
 
 const criaTokenJWT = ({ id }) => {
@@ -79,7 +79,7 @@ module.exports = {
   logout: async (req, res) => {
     try {
       const token = req.token;
-      await blacklist.adiciona(token);
+      await blocklist.adiciona(token);
       res.status(204).send();
     } catch (err) {
       res.status(500).json({ err: err.message });

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Usuario = require('./usuarios-modelo');
 const { InvalidArgumentError } = require('../erros');
-const blacklist = require('../../redis/manipula-blacklist');
+const blocklist = require('../../redis/blocklist-access-token');
 
 const verificaUsuario = (usuario) => {
   if (!usuario) {
@@ -14,7 +14,7 @@ const verificaUsuario = (usuario) => {
 };
 
 const verificaTokenNaBlackList = async (token) => {
-  const temToken = await blacklist.contemToken(token);
+  const temToken = await blocklist.contemToken(token);
   if (temToken) {
     throw new jwt.JsonWebTokenError('Token inválido por logout');
   }

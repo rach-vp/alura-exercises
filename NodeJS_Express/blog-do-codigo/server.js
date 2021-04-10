@@ -1,6 +1,6 @@
 require('./database');
 require('dotenv').config();
-require('./redis/blacklist');
+require('./redis/blocklist-access-token');
 require('./redis/allowlist-refresh-token');
 
 const app = require('./app');
