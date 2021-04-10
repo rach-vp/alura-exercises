@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const moment = require('moment');
 const Usuario = require('./usuarios-modelo');
 const { InvalidArgumentError, InternalServerError } = require('../erros');
 const blacklist = require('../../redis/manipula-blacklist');
+const allowListRefreshToken = require('../../redis/allowlist-refresh-token');
 
 const criaTokenJWT = ({ id }) => {
   const payload = { id };
@@ -13,6 +16,13 @@ const criaTokenJWT = ({ id }) => {
   );
   return token;
 };
+
+const criaTokenOpaco = async (usuario) => {
+  const tokenOpaco = crypto.randomBytes(24).toString('hex');
+  const dataExpiracao = moment().add(5, 'd').unix();
+  await allowListRefreshToken.adiciona(tokenOpaco, usuario.id, dataExpiracao);
+  return tokenOpaco;
+}
 
 module.exports = {
   adiciona: async (req, res) => {
@@ -55,10 +65,15 @@ module.exports = {
     }
   },
 
-  login: (req, res) => {
-    const tokenUsuario = criaTokenJWT(req.user);
-    res.set('Authorization', tokenUsuario);
-    res.status(204).send();
+  login: async (req, res) => {
+    try {
+      const accessToken = criaTokenJWT(req.user);
+      const refreshToken = await criaTokenOpaco(req.user);
+      res.set('Authorization', accessToken);
+      res.status(200).json({ refreshToken });
+    } catch (erro) {
+      res.status(500).json({ erro: erro.message });
+    }
   },
 
   logout: async (req, res) => {
