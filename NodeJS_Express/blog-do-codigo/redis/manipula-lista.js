@@ -11,7 +11,7 @@ module.exports = lista => {
       lista.expireat(chave, dataExpiracao);
     },
     async buscaValor(chave) {
-      return await  getAsync(chave);
+      return await getAsync(chave);
     },
     async contemChave(chave) {
       const result = await existsAsync(chave);
