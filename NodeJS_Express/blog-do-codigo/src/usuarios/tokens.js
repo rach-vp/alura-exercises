@@ -6,6 +6,7 @@ const blocklistAccessToken = require('../../redis/blocklist-access-token');
 const { InvalidArgumentError } = require('../erros');
 
 const verificaTokenNaBlockList = async (token, nome, blocklist) => {
+  if (!blocklist) return;
   const temToken = await blocklist.contemToken(token);
   if (temToken) {
     throw new jwt.JsonWebTokenError(`${nome} inválido por logout`);
@@ -51,6 +52,18 @@ const invalidaTokenOpaco = async (token, allowlist) => {
   await allowlist.delete(token);
 };
 
+function verificaTokenValido(id, nome) {
+  if (!id) {
+    throw new InvalidArgumentError(`${nome} inválido`);
+  }
+}
+
+function verificaTokenEnviado(token, nome) {
+  if (!token) {
+    throw new InvalidArgumentError(`${nome} não enviado`);
+  }
+}
+
 module.exports = {
   access: {
     nome: 'Access token',
@@ -80,16 +93,14 @@ module.exports = {
       return invalidaTokenOpaco(token, this.lista);
     },
   },
+  verificacaoEmail: {
+    nome: 'Token de verificação de e-mail',
+    expiracao: [1, 'h'],
+    cria(id) {
+      return criaTokenJWT(id, this.expiracao);
+    },
+    verifica(token) {
+      return verificaTokenJWT(token, this.expiracao);
+    },
+  },
 };
-function verificaTokenValido(id, nome) {
-  if (!id) {
-    throw new InvalidArgumentError(`${nome} inválido`);
-  }
-}
-
-function verificaTokenEnviado(token, nome) {
-  if (!token) {
-    throw new InvalidArgumentError(`${nome} não enviado`);
-  }
-}
-
