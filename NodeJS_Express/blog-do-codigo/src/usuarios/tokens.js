@@ -29,6 +29,10 @@ const verificaTokenJWT = async (token, nome, blocklist) => {
   return id;
 };
 
+const invalidaTokenJWT = (token, blocklist) => {
+  return blocklist.adiciona(token);
+};
+
 const criaTokenOpaco = async (id, [tempoQuant, tempoUnidade], lista) => {
   const tokenOpaco = crypto.randomBytes(24).toString('hex');
   const dataExpiracao = moment().add(tempoQuant, tempoUnidade).unix();
@@ -43,6 +47,10 @@ const verificaTokenOpaco = async (token, nome, allowlist) => {
   return id;
 };
 
+const invalidaTokenOpaco = async (token, allowlist) => {
+  await allowlist.delete(token);
+};
+
 module.exports = {
   access: {
     nome: 'Access token',
@@ -53,6 +61,9 @@ module.exports = {
     },
     verifica(token) {
       return verificaTokenJWT(token, this.nome, this.lista);
+    },
+    invalida(token) {
+      return invalidaTokenJWT(token, this.lista);
     },
   },
   refresh: {
@@ -65,17 +76,20 @@ module.exports = {
     verifica(token) {
       return verificaTokenOpaco(token, this.nome, this.lista);
     },
+    invalida(token) {
+      return invalidaTokenOpaco(token, this.lista);
+    },
   },
 };
 function verificaTokenValido(id, nome) {
   if (!id) {
-    throw new InvalidArgumentError(`${nome} token inválido`);
+    throw new InvalidArgumentError(`${nome} inválido`);
   }
 }
 
 function verificaTokenEnviado(token, nome) {
   if (!token) {
-    throw new InvalidArgumentError(`${nome} token não enviado`);
+    throw new InvalidArgumentError(`${nome} não enviado`);
   }
 }
 
