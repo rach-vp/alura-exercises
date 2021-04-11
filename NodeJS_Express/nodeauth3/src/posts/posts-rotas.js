@@ -1,12 +1,14 @@
 const postsControlador = require('./posts-controlador')
 const middlewaresAutenticacao = require('../middlewares/middlewares-autenticacao')
 const middlewaresAutorizacao = require('../middlewares/middlewares-autorizacao')
+const noAuth = require('../middlewares/no-auth')
+const noAuthorizationRequired = require('../middlewares/no-authorization-required')
 
 module.exports = app => {
   app
     .route('/post')
     .get(
-      middlewaresAutenticacao.bearer,
+      [noAuth, noAuthorizationRequired('post', 'ler')],
       postsControlador.lista
     )
     .post(
