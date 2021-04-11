@@ -21,7 +21,7 @@ module.exports = {
     try {
       let posts = await Post.listarTodos()
 
-      if(!req.authenticated) {
+      if (!req.authenticated) {
         posts = posts.map(({ titulo, conteudo }) => ({ titulo, conteudo }))
       }
 
@@ -42,7 +42,13 @@ module.exports = {
 
   async remover (req, res) {
     try {
-      const post = await Post.buscaPorId(req.params.id, req.user.id)
+      let post
+      if (req.acesso.todos.permitido) {
+        post = await Post.buscaPorId(req.params.id, req.user.id)
+      } else if (req.acesso.proprio.permitido) {
+        post = await Post.buscaPorId(req.params.id, req.user.id)
+      }
+
       post.remover()
       res.status(204)
       res.end()
