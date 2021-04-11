@@ -19,5 +19,13 @@ module.exports = {
         `O campo ${nome} precisa ser menor que ${maximo} caracteres!`
       )
     }
+  },
+
+  cargoValido (cargo) {
+    const cargosValidos = ['admin', 'editor', 'assinante']
+
+    if (!cargosValidos.includes(cargo)) {
+      throw new InvalidArgumentError(`Cargo ${cargo} não é um cargo aceito`)
+    }
   }
 }

@@ -1,5 +1,6 @@
 const postsControlador = require('./posts-controlador')
 const { middlewaresAutenticacao } = require('../usuarios')
+const middlewaresAutorizacao = require('./middlewares-autorizacao')
 
 module.exports = app => {
   app
@@ -19,7 +20,10 @@ module.exports = app => {
       postsControlador.obterDetalhes
     )
     .delete(
-      middlewaresAutenticacao.bearer,
+      [
+        middlewaresAutenticacao.bearer,
+        middlewaresAutorizacao(['admin', 'editor'])
+      ],
       postsControlador.remover
     )
 }
