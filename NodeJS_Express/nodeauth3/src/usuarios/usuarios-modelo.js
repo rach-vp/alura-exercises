@@ -1,5 +1,5 @@
 const usuariosDao = require('./usuarios-dao')
-const { InvalidArgumentError } = require('../erros')
+const { InvalidArgumentError, NotFound } = require('../erros')
 const validacoes = require('../validacoes-comuns')
 const bcrypt = require('bcrypt')
 
@@ -50,7 +50,7 @@ class Usuario {
   static async buscaPorId (id) {
     const usuario = await usuariosDao.buscaPorId(id)
     if (!usuario) {
-      return null
+      throw new NotFound('usuario')
     }
 
     return new Usuario(usuario)
