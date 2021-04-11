@@ -39,7 +39,11 @@ module.exports = app => {
   app
     .route('/usuario/:id')
     .delete(
-      [middlewaresAutenticacao.bearer, middlewaresAutorizacao('post', 'remover')],
+      [
+        middlewaresAutenticacao.bearer,
+        middlewaresAutenticacao.local,
+        middlewaresAutorizacao('usuario', 'remover')
+      ],
       usuariosControlador.deleta
     )
 }

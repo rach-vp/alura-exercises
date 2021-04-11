@@ -3,7 +3,7 @@ const controle = require('../controle-de-acesso')
 const metodos = {
   ler: {
     todos: 'readAny',
-    proprio: 'readOnw'
+    proprio: 'readOwn'
   },
   criar: {
     todos: 'createAny',

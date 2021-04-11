@@ -30,6 +30,7 @@ module.exports = app => {
     .delete(
       [
         middlewaresAutenticacao.bearer,
+        middlewaresAutenticacao.local,
         middlewaresAutorizacao('post', 'remover')
       ],
       postsControlador.remover
