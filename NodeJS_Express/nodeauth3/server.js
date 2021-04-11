@@ -9,6 +9,11 @@ require('./redis/allowlist-refresh-token')
 const routes = require('./rotas')
 routes(app)
 
+app.use((req, res, next) => {
+  res.set({ 'Content-Type': 'application/json' })
+  next()
+})
+
 const {
   InvalidArgumentError,
   NotFound,
@@ -23,9 +28,8 @@ app.use((erro, req, res, next) => {
   }
   switch (erro.constructor) {
     case InvalidArgumentError:
-      status = 401
-      break
     case jwt.JsonWebTokenError:
+    case Unauthorized:
       status = 401
       break
     case jwt.TokenExpiredError:
@@ -34,9 +38,6 @@ app.use((erro, req, res, next) => {
       break
     case NotFound:
       status = 404
-      break
-    case Unauthorized:
-      status = 401
       break
     default:
       status = 500
