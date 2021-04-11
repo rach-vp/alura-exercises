@@ -1,6 +1,6 @@
 const passport = require('passport')
-const Usuario = require('./usuarios-modelo')
-const tokens = require('./tokens')
+const Usuario = require('../usuarios/usuarios-modelo')
+const tokens = require('../usuarios/tokens')
 
 module.exports = {
   local (req, res, next) {

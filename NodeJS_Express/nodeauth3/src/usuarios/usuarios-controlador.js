@@ -61,7 +61,7 @@ module.exports = {
   async lista (req, res) {
     try {
       const usuarios = await Usuario.lista()
-      res.json(usuarios)
+      res.status(200).json(usuarios)
     } catch (erro) {
       res.status(500).json({ erro: erro.message })
     }
