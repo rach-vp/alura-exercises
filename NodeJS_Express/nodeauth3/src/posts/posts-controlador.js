@@ -21,7 +21,13 @@ module.exports = {
   async lista (req, res) {
     try {
       let posts = await Post.listarTodos()
-      const conversor = new ConversorPost('json')
+      console.log(req.acesso);
+      const conversor = new ConversorPost(
+        'json',
+        req.acesso.todos.permitido
+          ? req.acesso.todos.atributos
+          : req.acesso.proprio.atributos
+      )
 
       if (!req.authenticated) {
         posts = posts.map(({ titulo, conteudo }) => ({

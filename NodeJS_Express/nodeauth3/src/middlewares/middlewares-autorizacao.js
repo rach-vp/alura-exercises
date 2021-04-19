@@ -25,7 +25,7 @@ module.exports = (entidade, acao) => (req, res, next) => {
     res.status(403).end()
     return
   }
-
+  console.log('xablau');
   req.acesso = {
     todos: {
       permitido: permissaoTodos.granted,

@@ -1,7 +1,7 @@
 class ConversorPost {
-  constructor (contentType) {
+  constructor (contentType, camporExtras = []) {
     this.contentType = contentType
-    this.camposPublicos = ['titulo', 'conteudo']
+    this.camposPublicos = ['titulo', 'conteudo'].concat(camporExtras)
   }
 
   filtrarDados (dados) {
