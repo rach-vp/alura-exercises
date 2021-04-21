@@ -1,5 +1,6 @@
 *.txt
 *.sqlite
+Vagrantfile
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,code,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,code,python
