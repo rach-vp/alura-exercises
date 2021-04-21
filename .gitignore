@@ -1,9 +1,9 @@
 *.txt
 *.sqlite
-.vagrant
 
-# Created by https://www.toptal.com/developers/gitignore/api/node,code,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,code,python
+
+# Created by https://www.toptal.com/developers/gitignore/api/node,code,python,vagrant
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,code,python,vagrant
 
 ### Code ###
 .vscode/*
@@ -52,7 +52,6 @@ bower_components
 build/Release
 
 # Dependency directories
-*/node_modules/
 node_modules/
 jspm_packages/
 
@@ -102,6 +101,14 @@ typings/
 .nuxt
 dist
 
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static
+
+# rollup.js default build output
+dist/
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
@@ -126,6 +133,10 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+# Temporary folders
+tmp/
+temp/
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -139,12 +150,9 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -220,6 +228,9 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
+# poetry
+#poetry.lock
+
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
@@ -231,7 +242,9 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.venv
+# .env
+.env/
+.venv/
 env/
 venv/
 ENV/
@@ -260,7 +273,24 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# operating system-related files
+# file properties cache/storage on macOS
+*.DS_Store
+# thumbnail cache on Windows
+Thumbs.db
+
 # profiling data
 .prof
 
-# End of https://www.toptal.com/developers/gitignore/api/node,code,python
+
+### Vagrant ###
+# General
+.vagrant/
+
+# Log files (if you are creating logs in debug mode, uncomment this)
+# *.log
+
+### Vagrant Patch ###
+*.box
+
+# End of https://www.toptal.com/developers/gitignore/api/node,code,python,vagrant
