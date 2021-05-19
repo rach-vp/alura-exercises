@@ -6,17 +6,26 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
-  config.vm.network "forwarded_port", guest: 80, host:8080
-  config.vm.network "private_network", type: "dhcp"
-  # config.vm.network "public_network", ip: "192.168.1.66"
-  config.vm.synced_folder "./config", "/config"
-  config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.provision "shell",
-    inline: "cat /config/id_bionic.pub >> .ssh/authorized_keys"
-  config.vm.provision "shell",
-    inline: $mysql_server_installation
-  config.vm.provision "shell",
-    inline: "cat /config/mysqld.cnf > /etc/mysql/mysql.conf.d/mysqld.cnf"
-  config.vm.provision "shell",
-    inline: "service mysql restart"
+
+  config.vm.define "mysqldb" do |mysql|
+    mysql.vm.network "forwarded_port", guest: 80, host:8080
+    mysql.vm.network "private_network", type: "dhcp"
+    # mysql.vm.network "public_network", ip: "192.168.1.66"
+    mysql.vm.synced_folder "./config", "/config"
+    mysql.vm.synced_folder ".", "/vagrant", disabled: true
+    mysql.vm.provision "shell",
+      inline: "cat /config/id_bionic.pub >> .ssh/authorized_keys"
+    mysql.vm.provision "shell",
+      inline: $mysql_server_installation
+    mysql.vm.provision "shell",
+      inline: "cat /config/mysqld.cnf > /etc/mysql/mysql.conf.d/mysqld.cnf"
+    mysql.vm.provision "shell",
+      inline: "service mysql restart"
+  end
+
+  config.vm.define "phpweb" do |web|
+    web.vm.network "forwarded_port", guest: 80, host:8000
+    web.vm.network "private_network", type: "dhcp"
+    # web.vm.network "public_network", ip: "192.168.1.66"
+  end
 end
