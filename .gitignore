@@ -1,6 +1,7 @@
 *.txt
 *.sqlite
 DevOps/Vagrant/*/config/
+.env
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,python,react,vue,vuejs,vagrant,django

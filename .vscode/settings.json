@@ -8,6 +8,11 @@
   ],
   "python.testing.pytestEnabled": false,
   "python.testing.nosetestsEnabled": false,
-  "python.testing.unittestEnabled": true,
-  "liveServer.settings.port": 5501
+  "python.testing.unittestEnabled": false,
+  "liveServer.settings.port": 5501,
+  "python.testing.promptToConfigure": false,
+  "python.pythonPath": "venv/Scripts/python",
+  "python.linting.pylintArgs": [
+      "--load-plugins=pylint_django"
+  ]
 }
