@@ -328,6 +328,9 @@ temp/
 
 # poetry
 
+# poetry
+#poetry.lock
+
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 
 # Celery stuff
@@ -352,6 +355,12 @@ temp/
 # operating system-related files
 # file properties cache/storage on macOS
 # thumbnail cache on Windows
+
+# operating system-related files
+# file properties cache/storage on macOS
+*.DS_Store
+# thumbnail cache on Windows
+Thumbs.db
 
 # profiling data
 
