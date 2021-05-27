@@ -13,3 +13,6 @@ class Recipe(models.Model):
   category = models.CharField(max_length=100)
   published = models.BooleanField(default=False)
   created_at = models.DateTimeField(default=datetime.now, blank = True)
+
+  def __str__(self):
+    return self.recipe_name
