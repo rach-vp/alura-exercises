@@ -5,6 +5,7 @@ from authors.models import Author
 class Recipe(models.Model):
   author = models.ForeignKey(Author, on_delete=models.CASCADE)
   recipe_name = models.CharField(max_length=200)
+  picture = models.ImageField(upload_to='pics/%d/%m/%Y/', blank=True)
   ingredients = models.TextField()
   instructions = models.TextField()
   time_prepare = models.IntegerField()
