@@ -14,9 +14,8 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 
 - :white_check_mark: Python
 - :white_check_mark:  NodeJS
+- :hourglass_flowing_sand: Django
 - 💭 Java
-- 💭 PHP
-- 💭 Django
 - 💭 Spring Boot
 
 ### Front-end
@@ -25,7 +24,6 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 - :white_check_mark: Bootstrap
 - :white_check_mark: Vue.JS
 - :white_check_mark: React JS
-- 💭 Angular
 
 ### DevOps
 
@@ -35,8 +33,8 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 ### Databases and Data Science
 
 - :white_check_mark: MongoDB
-- :hourglass_flowing_sand: Database Modeling
-- 💭 MySQL
-- 💭 PostgreSQL
+- :white_check_mark: Database Modeling
+- :hourglass_flowing_sand: MySQL
+- 💭 GraphQL
 - 💭 PowerBI
 - 💭 Python for Data Science
