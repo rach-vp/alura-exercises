@@ -72,7 +72,10 @@
                             <h2>{{ recipe.recipe_name }}</h2>
                             <div class="receipe-duration">
                                 <h6>Preparo: {{ recipe.time_prepare }}min</h6>
-                                <h6>Rendimento: {{ recipe.portions }} porções</h6>
+                                <h6>
+                                    Rendimento: {{ recipe.portions }}
+                                    {% if recipe.portions > 1 %}porções{% else %}porção{% endif %}
+                                </h6>
                                 <h6>Categoria: {{ recipe.category }}</h6>
                                 <h6>Por: {{ recipe.author }}</h6>
                             </div>
