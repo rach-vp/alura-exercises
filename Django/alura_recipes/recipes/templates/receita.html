@@ -11,22 +11,7 @@
         <img src="{% static 'img/core-img/hamburger.png' %}" alt="">
     </div>
 
-    <!-- Search Wrapper -->
-    <div class="search-wrapper">
-        <!-- Close Btn -->
-        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <form action="#" method="post">
-                        <input type="search" name="search" placeholder="O que está procurando...">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'partials/searchbar.html' %}
 
     {% include 'partials/menu.html' %}
 
@@ -55,7 +40,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="receipe-slider owl-carousel">
-                        <img src="{% static 'img/bg-img/tomate_banner.jpg' %}">
+                        {% if not recipe.picture %}
+                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                        {% else %}
+                            <img src="{{ recipe.picture.url }}" alt="">
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -72,9 +61,12 @@
                             <h2>{{ recipe.recipe_name }}</h2>
                             <div class="receipe-duration">
                                 <h6>Preparo: {{ recipe.time_prepare }}min</h6>
-                                <h6>Rendimento: {{ recipe.portions }} porções</h6>
+                                <h6>
+                                    Rendimento: {{ recipe.portions }}
+                                    {% if recipe.portions > 1 %}porções{% else %}porção{% endif %}
+                                </h6>
                                 <h6>Categoria: {{ recipe.category }}</h6>
-                                <h6>Por: Pessoa</h6>
+                                <h6>Por: {{ recipe.author }}</h6>
                             </div>
                         </div>
                     </div>
