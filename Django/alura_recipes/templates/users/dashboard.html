@@ -1,1 +1,32 @@
-<h1>Isso é um dashboard =P</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/core-img/hamburger.png' %}" alt="">
+    </div>
+
+    {% include 'partials/searchbar.html' %}
+
+    {% include 'partials/menu.html' %}
+
+<div class="contact-area section-padding-0-80">
+   <div class="container">
+       <div class="row">
+           <div class="col-12">
+               <div class="section-heading">
+                   <h3>Olá {{ user.username }}</h3>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+{% include '../partials/footer.html' %}
+
+{% endblock %}
