@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib import auth
 
 def login(request):
   if request.method == 'POST':
@@ -8,7 +8,9 @@ def login(request):
     password = request.POST['password']
     if User.objects.filter(email=email).exists():
       username = User.objects.filter(email=email).values_list('username', flat=True).get()
-      if authenticate(request, username=username, password=password) is not None:
+      login = auth.authenticate(request, username=username, password=password)
+      if login is not None:
+        auth.login(request, login)
         print('Successful login')
         return redirect('dashboard')
     print('Invalid credentials')
@@ -16,7 +18,8 @@ def login(request):
   return render(request, 'users/login.html')
 
 def logout(request):
-  pass
+  auth.logout(request)
+  return redirect('index')
 
 def register(request):
   if request.method == 'POST':
@@ -49,4 +52,6 @@ def register(request):
   return render(request, 'users/register.html')
 
 def dashboard(request):
-  return render(request, 'users/dashboard.html')
+  if request.user.is_authenticated:
+    return render(request, 'users/dashboard.html')
+  return redirect('login')
