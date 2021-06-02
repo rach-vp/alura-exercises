@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 from recipes.models import Recipe
 
 def login(request):
@@ -12,9 +12,9 @@ def login(request):
       login = auth.authenticate(request, username=username, password=password)
       if login is not None:
         auth.login(request, login)
-        print('Successful login')
+        messages.success(request, 'Successful login')
         return redirect('dashboard')
-    print('Invalid credentials')
+    messages.error(request, 'Invalid credentials')
     return redirect('login')
   return render(request, 'users/login.html')
 
@@ -33,13 +33,13 @@ def register(request):
 
     for data in form_data:
       if not form_data[data]:
-        print(f'Field "{data}" must be filled')
+        messages.error(request, f'Field "{data}" must be filled')
         return redirect('register')
     if User.objects.filter(email=form_data['Email']).exists():
-      print('User already exists')
+      messages.error(request, 'User already exists')
       return redirect('register')
     if not form_data['Senha'] == form_data['Confirmação de senha']:
-      print('Passwords must match')
+      messages.error(request, 'Passwords must match')
       return redirect('register')
 
     user = User.objects.create_user(
@@ -48,7 +48,7 @@ def register(request):
       password=form_data['Senha'],
     )
     user.save()
-    print('User successfully registered')
+    messages.success(request, 'User successfully registered')
     return redirect('login')
   return render(request, 'users/register.html')
 
