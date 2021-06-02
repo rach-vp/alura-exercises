@@ -1,9 +1,9 @@
 from django.db import models
 from datetime import datetime
-from authors.models import Author
+from django.contrib.auth.models import User
 
 class Recipe(models.Model):
-  author = models.ForeignKey(Author, on_delete=models.CASCADE)
+  author = models.ForeignKey(User, on_delete=models.CASCADE)
   recipe_name = models.CharField(max_length=200)
   picture = models.ImageField(upload_to='pics/%d/%m/%Y/', blank=True)
   ingredients = models.TextField()
