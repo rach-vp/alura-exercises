@@ -2,10 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Recipe
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(req):
   recipes = Recipe.objects.order_by('-created_at').filter(published=True)
-  data = { 'recipes': recipes }
+  paginator = Paginator(recipes, 3)
+  page = PageNotAnInteger(req.GET.get('page'))
+  recipes_page = paginator.get_page(page)
+
+  data = { 'recipes': recipes_page }
   return render(req, 'index.html', data)
 
 def recipe(req, recipe_id):
