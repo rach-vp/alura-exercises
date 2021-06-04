@@ -91,3 +91,52 @@ def delete_recipe(request, recipe_id):
   recipe = get_object_or_404(Recipe, pk=recipe_id)
   recipe.delete()
   return redirect('dashboard')
+
+def edit_recipe(request, recipe_id):
+  recipe = get_object_or_404(Recipe, pk=recipe_id)
+  if request.method == 'POST':
+    recipe_data = {
+      'Título da receita': {
+        'column': 'recipe_name',
+        'data': request.POST['nome_receita'],
+      },
+      'Ingredientes': {
+        'column': 'ingredients',
+        'data': request.POST['ingredientes'],
+      },
+      'Modo de preparo': {
+        'column': 'instructions',
+        'data': request.POST['modo_preparo'],
+      },
+      'Tempo de preparo': {
+        'column': 'time_prepare',
+        'data': request.POST['tempo_preparo'],
+      },
+      'Rendimento': {
+        'column': 'portions',
+        'data': request.POST['rendimento'],
+      },
+      'Categoria da receita': {
+        'column': 'category',
+        'data': request.POST['categoria'],
+      },
+      'Foto da receita': {
+        'column': 'picture',
+        'data': get_recipe_picture(request, recipe),
+      },
+    }
+    for field in recipe_data:
+      if not recipe_data[field]['data']:
+        messages.error(request, f'Campo {field} não está preenchido')
+        return redirect('edit_recipe')
+      else:
+        setattr(recipe, recipe_data[field]['column'], recipe_data[field]['data'])
+    recipe.save()
+    return redirect('dashboard')
+
+
+  recipe_data = { 'recipe': recipe }
+  return render(request, 'users/edit_recipe.html', recipe_data)
+
+def get_recipe_picture(request, recipe):
+  return recipe.picture.url.split('/media/')[-1] if not request.FILES else request.FILES['foto_receita']
