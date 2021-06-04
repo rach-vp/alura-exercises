@@ -3,21 +3,24 @@ from tempus_dominus.widgets import DatePicker
 from datetime import datetime
 from passagens.classe_viagem import classes
 from passagens.validation import *
+from passagens.models import Passagem, ClasseViagem, Pessoa
 
-class PassagensForm(forms.Form):
-  origem = forms.CharField(label='Origem', max_length=100)
-  destino = forms.CharField(label='Destino', max_length=100)
-  data_ida = forms.DateField(label='Data de ida', widget=DatePicker())
-  data_volta = forms.DateField(label='Data de volta', widget=DatePicker())
+class PassagensForm(forms.ModelForm):
   data_pesquisa = forms.DateField(label='Data da pesquisa', disabled=True, initial=datetime.today)
-  classe = forms.ChoiceField(label='Classe', choices=classes)
-  adicionais = forms.CharField(
-    label='Informações adicionais',
-    max_length=200,
-    widget=forms.Textarea(),
-    required=False,
-  )
-  email = forms.EmailField(label='Email')
+
+  class Meta:
+    model = Passagem
+    fields = '__all__'
+    labels = {
+      'data_ida': 'Data de ida',
+      'data_volta': 'Data de volta',
+      'informacoes': 'Informações',
+      'classe_viagem': 'Classe'
+    }
+    widgets = {
+      'data_ida': DatePicker,
+      'data_volta': DatePicker,
+    }
 
   def clean(self):
     origem = self.cleaned_data.get('origem')
