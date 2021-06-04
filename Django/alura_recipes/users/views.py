@@ -86,3 +86,8 @@ def create_recipe(request):
     recipe.save()
     return redirect('dashboard')
   return render(request, 'users/create_recipe.html')
+
+def delete_recipe(request, recipe_id):
+  recipe = get_object_or_404(Recipe, pk=recipe_id)
+  recipe.delete()
+  return redirect('dashboard')
