@@ -12,4 +12,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('student/<int:pk>/enrollments', school_viewsets.EnrollmentPerStudent.as_view()),
+    path('course/<int:pk>/enrollments', school_viewsets.StudentsEnrolledInCourse.as_view()),
 ]

@@ -26,3 +26,10 @@ class EnrollmentPerStudentSerializer(serializers.ModelSerializer):
   class Meta:
     model = Enrollment
     fields = ['course', 'term']
+
+class StudentsEnrolledInCourseSerializer(serializers.ModelSerializer):
+  student_name = serializers.ReadOnlyField(source='student.name')
+
+  class Meta:
+    model = Enrollment
+    fields = ['student_name']
