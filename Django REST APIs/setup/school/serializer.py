@@ -15,3 +15,14 @@ class EnrollmentSerializer(serializers.ModelSerializer):
   class Meta:
     model = Enrollment
     fields = '__all__'
+
+class EnrollmentPerStudentSerializer(serializers.ModelSerializer):
+  course = serializers.ReadOnlyField(source='course.description')
+  term = serializers.SerializerMethodField()
+
+  def get_term(self, obj):
+    return obj.get_term_display()
+
+  class Meta:
+    model = Enrollment
+    fields = ['course', 'term']
