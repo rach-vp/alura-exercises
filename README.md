@@ -34,7 +34,7 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 
 - :white_check_mark: MongoDB
 - :white_check_mark: Database Modeling
-- :hourglass_flowing_sand: MySQL
+- :white_check_mark: MySQL
 - 💭 GraphQL
 - 💭 PowerBI
 - 💭 Python for Data Science
