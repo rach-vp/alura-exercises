@@ -7,6 +7,6 @@ class Clients(admin.ModelAdmin):
   list_filter = ('active',)
   list_editable = ('active',)
   list_per_page = 10
-  search_fields = ('name')
+  search_fields = ('name',)
 
 admin.site.register(Client, Clients)
