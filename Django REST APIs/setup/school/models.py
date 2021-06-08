@@ -23,3 +23,14 @@ class Course(models.Model):
 
   def __str__(self):
     return self.title
+
+class Enrollment(models.Model):
+  TERM = (
+    ('M', 'Morning'),
+    ('A', 'Afternoon'),
+    ('N', 'Night'),
+  )
+
+  student = models.ForeignKey(Student, on_delete=models.CASCADE)
+  course = models.ForeignKey(Course, on_delete=models.CASCADE)
+  term = models.CharField(max_length=1, choices=TERM, blank=False, null=False, default='M')
