@@ -1,3 +1,5 @@
+import re
+
 def cpf_validation(cpf):
   """Validate if cpf hs 11 numeric digits"""
   if not cpf.isdigit():
@@ -21,7 +23,9 @@ def rg_validation(rg):
   return ''
 
 def phone_number_validation(phone_number):
-  """Validate if phone number has as leasr 11 digits"""
+  """Validate if phone number has at least 11 digits and has a valid structure"""
   if len(phone_number) < 11:
     return 'O número de telefone deve conter no mínimo 11 dígitos.'
-  return ''
+  model = '[0-9]{2} [0-9]{5}-[0-9]{4}'
+  valid = re.findall(model, phone_number)
+  return 'O número de telefone deve seguir o padrão 99 99999-9999' if not valid else ''
