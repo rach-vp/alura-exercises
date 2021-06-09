@@ -1,12 +1,13 @@
 import re
+from validate_docbr import CPF
 
 def cpf_validation(cpf):
   """Validate if cpf hs 11 numeric digits"""
   if not cpf.isdigit():
     return 'O CPF deve ser composto apenas por números'
-  elif len(cpf) != 11:
-    return 'O CPF deve possuir 11 dígitos.'
-  return ''
+  else:
+    cpf_validate = CPF()
+    return 'CPF inválido.' if not cpf_validate.validate(cpf) else ''
 
 def name_validation(name):
   """Validate if name has no numeric digits"""
