@@ -23,12 +23,3 @@ class ClientSerializer(serializers.ModelSerializer):
       raise serializers.ValidationError(errors)
     else:
       return data
-
-    # for field in data_to_validate:
-    #   if data_to_validate[field]:
-    #     errors[field] = data_to_validate[field]
-    # if errors.keys():
-    #   for error in errors:
-    #     raise serializers.ValidationError({ error: errors[error] })
-    # else:
-    #   return data
