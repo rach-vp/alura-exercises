@@ -7,5 +7,11 @@ class ClientViewSet(viewsets.ModelViewSet):
   """Display clients"""
   queryset = Client.objects.all()
   serializer_class = ClientSerializer
-  filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+  filter_backends = [
+    DjangoFilterBackend,
+    filters.OrderingFilter,
+    filters.SearchFilter,
+  ]
   ordering_fields = ['name']
+  search_fields = ['name', 'cpf']
+  filterset_fields = ['active']
