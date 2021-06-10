@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/core-img/hamburger.png' %}" alt="">
+    </div>
+
+    {% include 'partials/searchbar.html' %}
+
+    {% include 'partials/menu.html' %}
+
+        <!-- Receipe Post Search -->
+        <div class="receipe-post-search mb-80">
+            <div class="container">
+                <form action="#" method="post">
+                    <div class="row">
+                        <div class="col-12 col-lg-5">
+                            <select name="select1" id="select1">
+                                <option value="1">Comida típica brasileira</option>
+                                <option value="1">Massas</option>
+                                <option value="1">Veganas</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-2 text-right">
+                            <button type="submit" class="btn delicious-btn">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Receipe Slider -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="receipe-slider owl-carousel">
+                        {% if not recipe.picture %}
+                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                        {% else %}
+                            <img src="{{ recipe.picture.url }}" alt="">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Receipe Content Area -->
+        <div class="receipe-content-area">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="receipe-headline my-5">
+                            <span>{{ recipe.created_at }}</span>
+                            <h2>{{ recipe.recipe_name }}</h2>
+                            <div class="receipe-duration">
+                                <h6>Preparo: {{ recipe.time_prepare }}min</h6>
+                                <h6>
+                                    Rendimento: {{ recipe.portions }}
+                                    {% if recipe.portions > 1 %}porções{% else %}porção{% endif %}
+                                </h6>
+                                <h6>Categoria: {{ recipe.category }}</h6>
+                                <h6>Por: {{ recipe.author }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <!-- Single Preparation Step -->
+                        <div class="single-preparation-step d-flex">
+                            <p>{{ recipe.instructions }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Ingredientes -->
+                    <div class="col-12 col-lg-4">
+                        <div class="ingredients">
+                            <h4>Ingredientes</h4>
+                            <div class="ingredients">
+                                <p>{{ recipe.ingredients }}</p>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ingredientes -->
+
+    {% include 'partials/footer.html'%}
+
+</body>
+
+</html>
+
+{% endblock %}
