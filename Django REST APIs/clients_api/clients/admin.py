@@ -3,6 +3,7 @@ from clients.models import Client
 
 class Clients(admin.ModelAdmin):
   list_display = ('id', 'name', 'email', 'cpf', 'active')
+  ordering = ('name',)
   list_display_links = ('id', 'name')
   list_filter = ('active',)
   list_editable = ('active',)
