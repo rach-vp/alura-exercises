@@ -30,10 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    'rest_framework',
-    'markdown',
-    'school',
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+DRF_APPS = [
+    'rest_framework',
+    'markdown',
+]
+
+PROJECT_APPS = [
+    'school',
+]
+
+INSTALLED_APPS = DJANGO_APPS + DRF_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
