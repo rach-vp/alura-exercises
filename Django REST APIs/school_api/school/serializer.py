@@ -4,7 +4,7 @@ from school.models import Student, Course, Enrollment
 class StudentSerializer(serializers.ModelSerializer):
   class Meta:
     model = Student
-    fields = '__all__'
+    exclude = ['phone_number']
 
 class CourseSerializer(serializers.ModelSerializer):
   class Meta:
@@ -33,3 +33,8 @@ class StudentsEnrolledInCourseSerializer(serializers.ModelSerializer):
   class Meta:
     model = Enrollment
     fields = ['student_name']
+
+class StudentSerializerV2(serializers.ModelSerializer):
+  class Meta:
+    model = Student
+    fields = '__all__'
