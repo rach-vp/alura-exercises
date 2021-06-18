@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-35e=l&y)m&@9q*3sg8a+z2mj--4lypicv&_a8%5iu2lhw(k$!x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+]
 
 
 # Application definition
@@ -44,6 +46,7 @@ API_APPS = [
     'rest_framework',
     'markdown',
     'corsheaders',
+    'admin_honeypot',
 ]
 
 PROJECT_APPS = [
