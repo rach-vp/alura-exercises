@@ -2,6 +2,8 @@ from rest_framework import viewsets, generics, status
 from school.models import Student, Course,Enrollment
 from school.serializer import *
 from rest_framework.response import Response
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 class StudentsViewSet(viewsets.ModelViewSet):
   """Display all students"""
@@ -28,6 +30,10 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
   """Display all enrollments"""
   queryset = Enrollment.objects.all()
   serializer_class = EnrollmentSerializer
+
+  @method_decorator(cache_page(60 * 60))
+  def dispatch(self, *args, **kwargs):
+    return super(EnrollmentViewSet, self).dispatch(*args, **kwargs)
 
 class EnrollmentPerStudent(generics.ListAPIView):
   """Display enrollments per student. An student ID must be provided"""
