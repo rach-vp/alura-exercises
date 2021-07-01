@@ -10,5 +10,17 @@
   <nav class="navbar">
     Animal Search
   </nav>
+  <form action="">
+    <input type="text" id="search-animal" placeholder="Example: lion" name="search">
+    <button type="submit">Search</button>
+  </form>
+  <div>
+    {% for feature in features %}
+      <div class="result-description">{{ feature.name }}</div>
+      <div class="result-description">{{ feature.predator }}</div>
+      <div class="result-description">{{ feature.poisonous }}</div>
+      <div class="result-description">{{ feature.domestic }}</div>
+    {% endfor %}
+  </div>
 </body>
 </html>
