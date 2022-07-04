@@ -3,6 +3,7 @@
 DevOps/Vagrant/*/config/
 .env
 drf-clients/*
+Front-End/alura-broker/dist/js
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,python,react,vue,vuejs,vagrant,django
@@ -34,7 +35,7 @@ media
 .Python
 build/
 develop-eggs/
-dist/
+# dist/
 downloads/
 eggs/
 .eggs/
@@ -251,7 +252,7 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist
 
 # Storybook build outputs
 .out
