@@ -1,5 +1,6 @@
 import { Trade } from "../models/Trade.js";
 import { TradesList } from "../models/TradesList.js";
+import { MessageView } from "../views/MessageView.js";
 import { TradesListView } from "../views/TradesListView.js";
 
 export class TradeController {
@@ -8,6 +9,7 @@ export class TradeController {
   private inputValue: HTMLInputElement;
   private trades: TradesList = new TradesList();
   private tradesListView = new TradesListView('#trades-list-view');
+  private messageView = new MessageView('#mensagemView');
 
   constructor() {
     this.inputDate = document.querySelector('#data');
@@ -20,6 +22,7 @@ export class TradeController {
     const trade = this.createTrade()
     this.trades.add(trade);
     this.tradesListView.update(this.trades);
+    this.messageView.update('Trade successfully added!');
 
     this.clearForm();
     this.inputDate.focus();
