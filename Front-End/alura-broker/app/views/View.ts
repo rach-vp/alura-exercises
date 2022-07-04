@@ -9,6 +9,7 @@ export abstract class View<T> {
 
   public update(model: T): void {
     this.element.innerHTML = this.template(model);
+    this.show();
   }
 
   public fade(): void {

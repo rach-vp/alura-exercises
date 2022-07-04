@@ -1,3 +1,4 @@
+import { WeekDays } from "../enums/WeekDays.js";
 import { Trade } from "../models/Trade.js";
 import { TradesList } from "../models/TradesList.js";
 import { MessageView } from "../views/MessageView.js";
@@ -14,9 +15,14 @@ export class TradeController {
   ) {}
 
   public add(): void {
-    const trade = this.createTrade()
-    this.trades.add(trade);
-    this.updateView();
+    const trade = this.createTrade();
+
+    if (this.isWorkDay(trade.date)) {
+      this.trades.add(trade);
+      this.updateView();
+    } else {
+      this.messageView.update('Only trades in workdays are allowed!');
+    }
 
     this.clearForm();
     this.inputDate.focus();
@@ -36,11 +42,16 @@ export class TradeController {
     this.inputDate.value = '';
     this.inputAmount.value = '';
     this.inputValue.value = '';
+
+    this.messageView.fade();
   }
 
   private updateView(): void {
     this.tradesListView.update(this.trades);
     this.messageView.update('Trade successfully added!');
-    this.messageView.fade();
+  }
+
+  private isWorkDay(date: Date) {
+    return date.getDay() > WeekDays.SUNDAY && date.getDay() < WeekDays.SATURDAY;
   }
 }
