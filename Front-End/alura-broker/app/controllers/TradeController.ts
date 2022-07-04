@@ -23,6 +23,7 @@ export class TradeController {
     this.trades.add(trade);
     this.tradesListView.update(this.trades);
     this.messageView.update('Trade successfully added!');
+    this.messageView.fade();
 
     this.clearForm();
     this.inputDate.focus();
