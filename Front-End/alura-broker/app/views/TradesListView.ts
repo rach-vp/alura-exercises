@@ -2,7 +2,7 @@ import { TradesList } from "../models/TradesList.js";
 import { View } from "./View.js";
 
 export class TradesListView extends View<TradesList> {
-  template(model: TradesList): string {
+  protected template(model: TradesList): string {
     return `
       <table class="table table-hover table-bordered">
         <thead>
