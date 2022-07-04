@@ -21,9 +21,7 @@ export class TradeController {
   public add(): void {
     const trade = this.createTrade()
     this.trades.add(trade);
-    this.tradesListView.update(this.trades);
-    this.messageView.update('Trade successfully added!');
-    this.messageView.fade();
+    this.updateView();
 
     this.clearForm();
     this.inputDate.focus();
@@ -36,12 +34,18 @@ export class TradeController {
       new Date(this.inputDate.value.replace(dateSeparatorRegExp, ',')),
       parseInt(this.inputAmount.value),
       parseFloat(this.inputValue.value),
-    );
+      );
   }
 
   private clearForm(): void {
     this.inputDate.value = '';
     this.inputAmount.value = '';
     this.inputValue.value = '';
+  }
+
+  private updateView(): void {
+    this.tradesListView.update(this.trades);
+    this.messageView.update('Trade successfully added!');
+    this.messageView.fade();
   }
 }
