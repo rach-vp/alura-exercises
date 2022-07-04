@@ -4,19 +4,14 @@ import { MessageView } from "../views/MessageView.js";
 import { TradesListView } from "../views/TradesListView.js";
 
 export class TradeController {
-  private inputDate: HTMLInputElement;
-  private inputAmount: HTMLInputElement;
-  private inputValue: HTMLInputElement;
-  private trades: TradesList = new TradesList();
-  private tradesListView = new TradesListView('#trades-list-view');
-  private messageView = new MessageView('#mensagemView');
-
-  constructor() {
-    this.inputDate = document.querySelector('#data');
-    this.inputAmount = document.querySelector('#quantidade');
-    this.inputValue = document.querySelector('#valor');
-    this.tradesListView.update(this.trades);
-  }
+  constructor(
+    private inputDate: HTMLInputElement = document.querySelector('#data'),
+    private inputAmount: HTMLInputElement = document.querySelector('#quantidade'),
+    private inputValue: HTMLInputElement = document.querySelector('#valor'),
+    private trades: TradesList = new TradesList(),
+    private tradesListView = new TradesListView('#trades-list-view'),
+    private messageView = new MessageView('#mensagemView')
+  ) {}
 
   public add(): void {
     const trade = this.createTrade()
