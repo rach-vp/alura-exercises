@@ -6,9 +6,9 @@ import { TradesListView } from "../views/TradesListView.js";
 
 export class TradeController {
   constructor(
-    private inputDate: HTMLInputElement = document.querySelector('#data'),
-    private inputAmount: HTMLInputElement = document.querySelector('#quantidade'),
-    private inputValue: HTMLInputElement = document.querySelector('#valor'),
+    private inputDate: HTMLInputElement = document.querySelector('#data') as HTMLInputElement,
+    private inputAmount: HTMLInputElement = document.querySelector('#quantidade') as HTMLInputElement,
+    private inputValue: HTMLInputElement = document.querySelector('#valor') as HTMLInputElement,
     private trades: TradesList = new TradesList(),
     private tradesListView = new TradesListView('#trades-list-view'),
     private messageView = new MessageView('#mensagemView')
