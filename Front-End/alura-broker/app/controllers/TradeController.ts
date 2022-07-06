@@ -1,3 +1,4 @@
+import { LogExecutionTime } from "../decorators/LogExecutionTime.js";
 import { WeekDays } from "../enums/WeekDays.js";
 import { Trade } from "../models/Trade.js";
 import { TradesList } from "../models/TradesList.js";
@@ -14,6 +15,7 @@ export class TradeController {
     private messageView = new MessageView('#mensagemView')
   ) {}
 
+  @LogExecutionTime()
   public add(): void {
     const trade = this.createTrade();
 
