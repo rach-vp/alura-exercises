@@ -1,5 +1,8 @@
-export const Inspect = () => {
-  return (
+/*
+  If the decorator doesn't receive parameters
+  it's possible to return the funciton directly instead of the closure
+*/
+export const Inspect = (
     target: any,
     propertyKey: string,
     descriptor: PropertyDescriptor,
@@ -13,5 +16,4 @@ export const Inspect = () => {
       return originalReturn;
     }
     return descriptor;
-  };
 };

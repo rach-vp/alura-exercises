@@ -50,7 +50,7 @@ export class TradeController {
   }
 
   @LogExecutionTime(true)
-  @Inspect()
+  @Inspect // No need to execute the function
   private updateView(): void {
     this.tradesListView.update(this.trades);
     this.messageView.update('Trade successfully added!');
