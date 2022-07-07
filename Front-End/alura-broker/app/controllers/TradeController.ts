@@ -1,3 +1,4 @@
+import { Inspect } from "../decorators/Inspect.js";
 import { LogExecutionTime } from "../decorators/LogExecutionTime.js";
 import { WeekDays } from "../enums/WeekDays.js";
 import { Trade } from "../models/Trade.js";
@@ -49,6 +50,7 @@ export class TradeController {
   }
 
   @LogExecutionTime(true)
+  @Inspect()
   private updateView(): void {
     this.tradesListView.update(this.trades);
     this.messageView.update('Trade successfully added!');
