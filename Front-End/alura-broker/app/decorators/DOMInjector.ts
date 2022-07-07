@@ -1,6 +1,10 @@
 export const DOMInjector = (selector: string) => {
   return (target: any, propertyKey: string) => {
-    const get = () => document.querySelector(selector);
+    let element: HTMLElement;
+    const get = () => {
+      element = element || document.querySelector(selector);
+      return element;
+    };
 
     Object.defineProperty(target, propertyKey, { get });
   };
