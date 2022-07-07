@@ -15,7 +15,6 @@ export class TradeController {
     private messageView = new MessageView('#mensagemView')
   ) {}
 
-  @LogExecutionTime()
   public add(): void {
     const trade = this.createTrade();
 
@@ -30,6 +29,7 @@ export class TradeController {
     this.inputDate.focus();
   }
 
+  @LogExecutionTime()
   private createTrade(): Trade {
     const dateSeparatorRegExp = /-/g;
 
@@ -48,6 +48,7 @@ export class TradeController {
     this.messageView.fade();
   }
 
+  @LogExecutionTime(true)
   private updateView(): void {
     this.tradesListView.update(this.trades);
     this.messageView.update('Trade successfully added!');
