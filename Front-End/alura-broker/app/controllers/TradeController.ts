@@ -1,18 +1,24 @@
+import { DOMInjector } from "../decorators/DOMInjector.js";
+import { Inspect } from "../decorators/Inspect.js";
+import { LogExecutionTime } from "../decorators/LogExecutionTime.js";
 import { WeekDays } from "../enums/WeekDays.js";
 import { Trade } from "../models/Trade.js";
 import { TradesList } from "../models/TradesList.js";
+import { TradesService } from "../services/TradesService.js";
 import { MessageView } from "../views/MessageView.js";
 import { TradesListView } from "../views/TradesListView.js";
 
 export class TradeController {
-  constructor(
-    private inputDate: HTMLInputElement = document.querySelector('#data') as HTMLInputElement,
-    private inputAmount: HTMLInputElement = document.querySelector('#quantidade') as HTMLInputElement,
-    private inputValue: HTMLInputElement = document.querySelector('#valor') as HTMLInputElement,
-    private trades: TradesList = new TradesList(),
-    private tradesListView = new TradesListView('#trades-list-view'),
-    private messageView = new MessageView('#mensagemView')
-  ) {}
+  @DOMInjector('#data')
+  private inputDate: HTMLInputElement;
+  @DOMInjector('#quantidade')
+  private inputAmount: HTMLInputElement;
+  @DOMInjector('#valor')
+  private inputValue: HTMLInputElement;
+  private trades: TradesList = new TradesList();
+  private tradesListView = new TradesListView('#trades-list-view');
+  private messageView = new MessageView('#mensagemView');
+  private tradesService = new TradesService();
 
   public add(): void {
     const trade = this.createTrade();
@@ -28,6 +34,14 @@ export class TradeController {
     this.inputDate.focus();
   }
 
+  public importTrades(): void {
+    this.tradesService.fetchCurrentTrades().then(currentTrades => {
+      currentTrades.forEach(trade => this.trades.add(trade))
+      this.updateView();
+    });
+  }
+
+  @LogExecutionTime()
   private createTrade(): Trade {
     const dateSeparatorRegExp = /-/g;
 
@@ -46,6 +60,8 @@ export class TradeController {
     this.messageView.fade();
   }
 
+  @LogExecutionTime(true)
+  @Inspect // No need to execute the function
   private updateView(): void {
     this.tradesListView.update(this.trades);
     this.messageView.update('Trade successfully added!');
