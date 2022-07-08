@@ -16,7 +16,7 @@ This repository contains activities developed by [Raquel Picanço](https://www.l
 - :white_check_mark: NodeJS
 - :white_check_mark: Django
 - :white_check_mark: Django Rest Framework
-- :hourglass_flowing_sand: TypeScript
+- :white_check_mark: TypeScript
 
 ### Front-end
 
