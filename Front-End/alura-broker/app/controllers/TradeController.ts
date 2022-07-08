@@ -7,6 +7,9 @@ import { TradesList } from "../models/TradesList.js";
 import { MessageView } from "../views/MessageView.js";
 import { TradesListView } from "../views/TradesListView.js";
 
+// Won't create a .env for this project
+const API_URL = 'http://localhost:8080';
+
 export class TradeController {
   @DOMInjector('#data')
   private inputDate: HTMLInputElement;
@@ -30,6 +33,18 @@ export class TradeController {
 
     this.clearForm();
     this.inputDate.focus();
+  }
+
+  public importTrades(): void {
+    fetch(`${API_URL}/dados`)
+      .then(response => response.json())
+      .then((currentData: Array<CurrentTrades>) => currentData.map(
+        ({ montante, vezes }) => new Trade(new Date(), vezes, montante)
+      ))
+      .then(currentTrades => {
+        currentTrades.forEach(trade => this.trades.add(trade))
+        this.updateView();
+      });
   }
 
   @LogExecutionTime()
