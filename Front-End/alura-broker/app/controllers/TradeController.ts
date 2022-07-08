@@ -4,11 +4,9 @@ import { LogExecutionTime } from "../decorators/LogExecutionTime.js";
 import { WeekDays } from "../enums/WeekDays.js";
 import { Trade } from "../models/Trade.js";
 import { TradesList } from "../models/TradesList.js";
+import { TradesService } from "../services/TradesService.js";
 import { MessageView } from "../views/MessageView.js";
 import { TradesListView } from "../views/TradesListView.js";
-
-// Won't create a .env for this project
-const API_URL = 'http://localhost:8080';
 
 export class TradeController {
   @DOMInjector('#data')
@@ -20,6 +18,7 @@ export class TradeController {
   private trades: TradesList = new TradesList();
   private tradesListView = new TradesListView('#trades-list-view');
   private messageView = new MessageView('#mensagemView');
+  private tradesService = new TradesService();
 
   public add(): void {
     const trade = this.createTrade();
@@ -36,15 +35,10 @@ export class TradeController {
   }
 
   public importTrades(): void {
-    fetch(`${API_URL}/dados`)
-      .then(response => response.json())
-      .then((currentData: Array<CurrentTrades>) => currentData.map(
-        ({ montante, vezes }) => new Trade(new Date(), vezes, montante)
-      ))
-      .then(currentTrades => {
-        currentTrades.forEach(trade => this.trades.add(trade))
-        this.updateView();
-      });
+    this.tradesService.fetchCurrentTrades().then(currentTrades => {
+      currentTrades.forEach(trade => this.trades.add(trade))
+      this.updateView();
+    });
   }
 
   @LogExecutionTime()
