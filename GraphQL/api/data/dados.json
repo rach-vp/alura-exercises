@@ -54,6 +54,13 @@
       "name": "tesla",
       "active": true,
       "createdAt": "2022-07-10T00:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "role": 1,
+      "name": "fibo",
+      "active": true,
+      "createdAt": "2022-07-10T00:00:00.000Z"
     }
   ],
   "roles": [
