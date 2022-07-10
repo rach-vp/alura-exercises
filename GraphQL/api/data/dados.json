@@ -65,9 +65,10 @@
     },
     {
       "id": 10,
-      "role": 3,
+      "role": 1,
       "name": "flor",
-      "active": true
+      "active": true,
+      "email": "flor"
     }
   ],
   "roles": [
