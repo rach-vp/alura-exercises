@@ -13,8 +13,8 @@ module.exports = {
     userById: (_root, { id }, { dataSources }) => dataSources.usersAPI.getUserById(id),
   },
   Mutation: {
-    addUser: (_root, user, { dataSources }) => dataSources.usersAPI.addUser(user),
-    updateUser: (_root, data, { dataSources }) => dataSources.usersAPI.updateUser(data),
+    addUser: (_root, { user }, { dataSources }) => dataSources.usersAPI.addUser(user),
+    updateUser: (_root, { id, user }, { dataSources }) => dataSources.usersAPI.updateUser({ id, ...user }),
     removeUser: (_root, { id }, { dataSources }) => dataSources.usersAPI.removeUser(id),
   },
 };

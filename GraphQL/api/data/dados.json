@@ -57,10 +57,17 @@
     },
     {
       "id": 9,
-      "role": 1,
-      "name": "fibo",
+      "role": 2,
+      "name": "marie",
       "active": true,
-      "createdAt": "2022-07-10T00:00:00.000Z"
+      "createdAt": "2022-07-10T00:00:00.000Z",
+      "email": "chata@email.com"
+    },
+    {
+      "id": 10,
+      "role": 3,
+      "name": "flor",
+      "active": true
     }
   ],
   "roles": [
