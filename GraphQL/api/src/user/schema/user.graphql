@@ -18,4 +18,21 @@ module.exports = gql`
     users: [User!]!
     userById(id: ID!): User!
   }
+
+  type Mutation {
+    addUser(
+      name: String!,
+      active: Boolean!,
+      email: String,
+      role: String!,
+    ): User!
+    updateUser(
+      id: ID!,
+      name: String!,
+      active: Boolean!,
+      email: String,
+      role: String!,
+    ): User!
+    removeUser(id: ID): ID!
+  }
 `;
