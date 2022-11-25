@@ -1,10 +1,5 @@
-variable "IP_ADDRESS" {
-  type = string
-  description = "IP address received in env vars"
-}
-
-resource "aws_security_group" "ssh_access" {
-  name        = "ssh_access"
+resource "aws_security_group" "ssh_access-us-east-1" {
+  name        = "ssh_access-us-east-1"
   description = "Allow SSH access"
 
   ingress {
@@ -15,6 +10,23 @@ resource "aws_security_group" "ssh_access" {
   }
 
   tags = {
-    Name = "ssh_access"
+    Name = "ssh_access-us-east-1"
+  }
+}
+
+resource "aws_security_group" "ssh_access-us-east-2" {
+  provider    = aws.us-east-2
+  name        = "ssh_access-us-east-2"
+  description = "Allow SSH access"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.IP_ADDRESS}/32"]
+  }
+
+  tags = {
+    Name = "ssh_access-us-east-2"
   }
 }
