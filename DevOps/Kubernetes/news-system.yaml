@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: news-portal
+  name: news-systems
   labels:
-    name: news-portal
-    app: news-portal
+    name: news-system
+    app: news-system
 spec:
   containers:
-  - name: news-portal
-    image: aluracursos/portal-noticias:1
+  - name: news-system
+    image: aluracursos/sistema-noticias:1
     resources:
       limits:
         memory: "128Mi"
@@ -17,4 +17,4 @@ spec:
       - containerPort: 80
     envFrom:
       - configMapRef:
-          name: news-portal-configmap
+          name: news-system-configmap
