@@ -16,3 +16,6 @@ echo '--> Creating portal'
 kubectl apply -f ./configMaps/news-portal-configmap.yaml
 kubectl apply -f ./pods/news-portal.yaml
 kubectl apply -f ./services/news-portal-svc.yaml
+
+echo '--> Creating replicaset (testing)'
+kubectl apply -f ./replicasets/news-portal-replicaset.yaml
