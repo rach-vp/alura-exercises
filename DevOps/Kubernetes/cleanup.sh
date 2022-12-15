@@ -10,3 +10,6 @@ kubectl delete -f ./pods/news-system.yaml
 kubectl delete -f ./configMaps/news-db-configmap.yaml
 kubectl delete -f ./configMaps/news-system-configmap.yaml
 kubectl delete -f ./configMaps/news-portal-configmap.yaml
+kubectl delete -f ./deployments/news-db-deployment.yaml
+kubectl delete -f ./deployments/news-system-deployment.yaml
+kubectl delete -f ./deployments/news-portal-deployment.yaml
