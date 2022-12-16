@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: news-system-stateful
+spec:
+  selector:
+    matchLabels:
+      app: news-system
+  serviceName: news-system-svc
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: news-system
+    spec:
+      containers:
+      - name: news-system
+        image: aluracursos/sistema-noticias:1
+        ports:
+        - containerPort: 80
+          name: web
+        envFrom:
+          - configMapRef:
+              name: news-system-configmap
+        volumeMounts:
+        - name: images
+          mountPath: /var/www/html/uploads
+        - name: sessions
+          mountPath: /tmp
+      volumes:
+        - name: images
+          persistentVolumeClaim:
+            claimName: images-pvc
+        - name: sessions
+          persistentVolumeClaim:
+            claimName: sessions-pvc
