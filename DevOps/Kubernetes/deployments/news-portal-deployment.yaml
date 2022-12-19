@@ -24,3 +24,17 @@ spec:
         envFrom:
         - configMapRef:
             name: news-portal-configmap
+        livenessProbe:
+          httpGet:
+            port: 80
+            path: '/'
+          periodSeconds: 10
+          failureThreshold: 3
+          initialDelaySeconds: 20
+        readinessProbe:
+          httpGet:
+            port: 80
+            path: '/'
+          periodSeconds: 10
+          failureThreshold: 5
+          initialDelaySeconds: 3

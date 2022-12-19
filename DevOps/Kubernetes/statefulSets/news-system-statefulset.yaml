@@ -27,6 +27,20 @@ spec:
           mountPath: /var/www/html/uploads
         - name: sessions
           mountPath: /tmp
+        livenessProbe:
+          httpGet:
+            port: 80
+            path: '/'
+          periodSeconds: 10
+          failureThreshold: 3
+          initialDelaySeconds: 20
+        readinessProbe:
+          httpGet:
+            port: 80
+            path: '/inserir_noticias.php'
+          periodSeconds: 10
+          failureThreshold: 5
+          initialDelaySeconds: 3
       volumes:
         - name: images
           persistentVolumeClaim:
